@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metro CAT Value Calculator</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, Arial, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+}
+
+.header{
+    background:#202020;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.header h1{
+    color:#ffcc00;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+h2{
+    color:#202020;
+    margin-bottom:15px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+}
+
+.btn{
+    background:#ffcc00;
+    border:none;
+    padding:12px;
+    width:100%;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#f7b800;
+}
+
+.result{
+    margin-top:15px;
+    padding:15px;
+    background:#f8f8f8;
+    border-left:5px solid #ffcc00;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:20px;
+}
+
+.big-number{
+    font-size:28px;
+    font-weight:bold;
+    color:#d62828;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>Metro CAT Value Calculator</h1>
+<p>TCO | ROI | Downtime Calculator</p>
+</div>
+
+<div class="container">
+
+<div class="grid">
+
+<!-- TCO -->
+
+<div class="card">
+
+<h2>TCO Calculator</h2>
+
+<label>Purchase Price (THB)</label>
+<input id="purchase" value="5500000">
+
+<label>Fuel Cost / Year</label>
+<input id="fuel" value="1050000">
+
+<label>Maintenance Cost / Year</label>
+<input id="maintenance" value="300000">
+
+<label>Downtime Cost / Year</label>
+<input id="downtime" value="100000">
+
+<label>Years</label>
+<input id="years" value="5">
+
+<label>Resale Value</label>
+<input id="resale" value="2500000">
+
+<button class="btn" onclick="calculateTCO()">
+Calculate TCO
+</button>
+
+<div class="result">
+
+<p>Total Cost of Ownership</p>
+
+<div class="big-number" id="tcoResult">
+-
+</div>
+
+<p style="margin-top:10px">
+Cost Per Hour
+</p>
+
+<div class="big-number" id="hourResult">
+-
+</div>
+
+</div>
+
+</div>
+
+<!-- ROI -->
+
+<div class="card">
+
+<h2>ROI Calculator</h2>
+
+<label>Additional Investment</label>
+<input id="investment" value="500000">
+
+<label>Fuel Saving</label>
+<input id="savingFuel" value="140000">
+
+<label>Downtime Saving</label>
+<input id="savingDown" value="100000">
+
+<label>Resale Advantage</label>
+<input id="savingResale" value="300000">
+
+<button class="btn" onclick="calculateROI()">
+Calculate ROI
+</button>
+
+<div class="result">
+
+<p>ROI</p>
+
+<div class="big-number" id="roiResult">
+-
+</div>
+
+</div>
+
+</div>
+
+<!-- DOWNTIME -->
+
+<div class="card">
+
+<h2>Downtime Calculator</h2>
+
+<label>Revenue Per Day</label>
+<input id="revenue" value="20000">
+
+<label>Downtime Days</label>
+<input id="days" value="5">
+
+<button class="btn" onclick="calculateDowntime()">
+Calculate Downtime Cost
+</button>
+
+<div class="result">
+
+<p>Opportunity Loss</p>
+
+<div class="big-number" id="downtimeResult">
+-
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function money(value){
+    return Number(value).toLocaleString('en-US',{
+        maximumFractionDigits:0
+    });
+}
+
+function calculateTCO(){
+
+let purchase =
+parseFloat(document.getElementById("purchase").value);
+
+let fuel =
+parseFloat(document.getElementById("fuel").value);
+
+let maintenance =
+parseFloat(document.getElementById("maintenance").value);
+
+let downtime =
+parseFloat(document.getElementById("downtime").value);
+
+let years =
+parseFloat(document.getElementById("years").value);
+
+let resale =
+parseFloat(document.getElementById("resale").value);
+
+let tco =
+purchase +
+((fuel + maintenance + downtime) * years)
+- resale;
+
+let totalHours =
+years * 2000;
+
+let costHour =
+tco / totalHours;
+
+document.getElementById("tcoResult").innerHTML =
+money(tco) + " THB";
+
+document.getElementById("hourResult").innerHTML =
+money(costHour) + " THB/hr";
+
+}
+
+function calculateROI(){
+
+let investment =
+parseFloat(document.getElementById("investment").value);
+
+let fuel =
+parseFloat(document.getElementById("savingFuel").value);
+
+let down =
+parseFloat(document.getElementById("savingDown").value);
+
+let resale =
+parseFloat(document.getElementById("savingResale").value);
+
+let benefit =
+fuel + down + resale;
+
+let roi =
+((benefit - investment) / investment) * 100;
+
+document.getElementById("roiResult").innerHTML =
+roi.toFixed(1) + "%";
+
+}
+
+function calculateDowntime(){
+
+let revenue =
+parseFloat(document.getElementById("revenue").value);
+
+let days =
+parseFloat(document.getElementById("days").value);
+
+let cost =
+revenue * days;
+
+document.getElementById("downtimeResult").innerHTML =
+money(cost) + " THB";
+
+}
+
+calculateTCO();
+calculateROI();
+calculateDowntime();
+
+</script>
+
+</body>
+</html>
