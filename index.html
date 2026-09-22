@@ -30,7 +30,7 @@ body{
 }
 
 .container{
-    max-width:1200px;
+    max-width:1400px;
     margin:auto;
     padding:20px;
 }
@@ -44,8 +44,8 @@ body{
 }
 
 h2{
-    color:#202020;
     margin-bottom:15px;
+    color:#202020;
 }
 
 input{
@@ -53,15 +53,18 @@ input{
     padding:10px;
     margin-top:5px;
     margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:5px;
 }
 
 .btn{
     background:#ffcc00;
     border:none;
-    padding:12px;
     width:100%;
+    padding:12px;
     font-weight:bold;
     cursor:pointer;
+    border-radius:5px;
 }
 
 .btn:hover{
@@ -69,16 +72,10 @@ input{
 }
 
 .result{
-    margin-top:15px;
-    padding:15px;
+    margin-top:20px;
     background:#f8f8f8;
+    padding:15px;
     border-left:5px solid #ffcc00;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-    gap:20px;
 }
 
 .big-number{
@@ -87,14 +84,47 @@ input{
     color:#d62828;
 }
 
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:20px;
+}
+
+.compare-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.compare-box{
+    background:#fafafa;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+.cat-title{
+    color:#ffcc00;
+}
+
+.kom-title{
+    color:#0066cc;
+}
+
+@media(max-width:768px){
+    .compare-grid{
+        grid-template-columns:1fr;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="header">
-<h1>Metro CAT Value Calculator</h1>
-<p>TCO | ROI | Downtime Calculator</p>
+    <h1>Metro CAT Value Calculator</h1>
+    <p>TCO | ROI | Downtime | Comparison Tool</p>
 </div>
 
 <div class="container">
@@ -107,7 +137,7 @@ input{
 
 <h2>TCO Calculator</h2>
 
-<label>Purchase Price (THB)</label>
+<label>Purchase Price</label>
 <input id="purchase" value="5500000">
 
 <label>Fuel Cost / Year</label>
@@ -137,9 +167,9 @@ Calculate TCO
 -
 </div>
 
-<p style="margin-top:10px">
-Cost Per Hour
-</p>
+<br>
+
+<p>Cost Per Hour</p>
 
 <div class="big-number" id="hourResult">
 -
@@ -173,7 +203,7 @@ Calculate ROI
 
 <div class="result">
 
-<p>ROI</p>
+<p>ROI Result</p>
 
 <div class="big-number" id="roiResult">
 -
@@ -207,6 +237,78 @@ Calculate Downtime Cost
 -
 </div>
 
+</div>
+
+</div>
+
+</div>
+
+<!-- MACHINE COMPARISON -->
+
+<div class="card">
+
+<h2>CAT vs Komatsu Comparison</h2>
+
+<div class="compare-grid">
+
+<div class="compare-box">
+
+<h3 class="cat-title">
+CAT 320
+</h3>
+
+<label>Purchase Price</label>
+<input id="catPrice" value="5500000">
+
+<label>Fuel Cost / Year</label>
+<input id="catFuel" value="1050000">
+
+<label>Maintenance / Year</label>
+<input id="catMaintenance" value="300000">
+
+<label>Downtime / Year</label>
+<input id="catDowntime" value="100000">
+
+<label>Resale Value</label>
+<input id="catResale" value="2500000">
+
+</div>
+
+<div class="compare-box">
+
+<h3 class="kom-title">
+Komatsu PC210
+</h3>
+
+<label>Purchase Price</label>
+<input id="komPrice" value="5000000">
+
+<label>Fuel Cost / Year</label>
+<input id="komFuel" value="1150000">
+
+<label>Maintenance / Year</label>
+<input id="komMaintenance" value="350000">
+
+<label>Downtime / Year</label>
+<input id="komDowntime" value="150000">
+
+<label>Resale Value</label>
+<input id="komResale" value="2000000">
+
+</div>
+
+</div>
+
+<br>
+
+<button class="btn" onclick="compareMachine()">
+Compare Machines
+</button>
+
+<div class="result">
+
+<div id="compareResult">
+-
 </div>
 
 </div>
@@ -248,11 +350,8 @@ purchase +
 ((fuel + maintenance + downtime) * years)
 - resale;
 
-let totalHours =
-years * 2000;
-
 let costHour =
-tco / totalHours;
+tco / (years * 2000);
 
 document.getElementById("tcoResult").innerHTML =
 money(tco) + " THB";
@@ -280,7 +379,7 @@ let benefit =
 fuel + down + resale;
 
 let roi =
-((benefit - investment) / investment) * 100;
+((benefit - investment)/investment) * 100;
 
 document.getElementById("roiResult").innerHTML =
 roi.toFixed(1) + "%";
@@ -303,9 +402,72 @@ money(cost) + " THB";
 
 }
 
+function compareMachine(){
+
+let years = 5;
+
+let catTCO =
+parseFloat(catPrice.value)
++
+(
+parseFloat(catFuel.value)
++
+parseFloat(catMaintenance.value)
++
+parseFloat(catDowntime.value)
+) * years
+-
+parseFloat(catResale.value);
+
+let komTCO =
+parseFloat(komPrice.value)
++
+(
+parseFloat(komFuel.value)
++
+parseFloat(komMaintenance.value)
++
+parseFloat(komDowntime.value)
+) * years
+-
+parseFloat(komResale.value);
+
+let winner = "";
+
+if(catTCO < komTCO){
+    winner =
+    "<span style='color:green;font-size:24px'>✅ CAT 320 has lower Total Cost of Ownership</span>";
+}else{
+    winner =
+    "<span style='color:green;font-size:24px'>✅ Komatsu PC210 has lower Total Cost of Ownership</span>";
+}
+
+document.getElementById("compareResult").innerHTML =
+
+`
+<h3>Comparison Summary</h3>
+
+<p><b>CAT 320 TCO :</b> ${money(catTCO)} THB</p>
+
+<br>
+
+<p><b>Komatsu PC210 TCO :</b> ${money(komTCO)} THB</p>
+
+<br>
+
+<p><b>Difference :</b> ${money(Math.abs(catTCO-komTCO))} THB</p>
+
+<br>
+
+${winner}
+`;
+
+}
+
 calculateTCO();
 calculateROI();
 calculateDowntime();
+compareMachine();
 
 </script>
 
