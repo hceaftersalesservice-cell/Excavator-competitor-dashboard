@@ -367,6 +367,182 @@
         .footer-credit { font-family: 'Kanit', sans-serif; font-weight: 500; color: var(--text-dark); }
         .footer-credit span { color: #2563EB; font-weight: 600; }
 
+
+        /* UNIT CONVERTER */
+        .converter-toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 18px;
+            padding: 12px;
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .converter-toolbar label {
+            font-family: 'Kanit', sans-serif;
+            font-size: 13px;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .converter-select {
+            min-width: 250px;
+            padding: 8px 10px;
+            border: 1px solid #CBD5E1;
+            border-radius: 5px;
+            background: #FFFFFF;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 14px;
+        }
+
+        .converter-card {
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            background: #FFFFFF;
+        }
+
+        .converter-card-header {
+            background: #1E293B;
+            color: #FFFFFF;
+            padding: 11px 15px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: 1fr 90px 1fr;
+            gap: 12px;
+            align-items: center;
+            padding: 18px;
+        }
+
+        .converter-box {
+            background: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            border-radius: 7px;
+            padding: 12px;
+        }
+
+        .converter-box label {
+            display: block;
+            font-family: 'Kanit', sans-serif;
+            font-size: 12px;
+            color: #64748B;
+            margin-bottom: 6px;
+        }
+
+        .converter-box input {
+            max-width: none !important;
+            width: 100%;
+            font-size: 17px;
+            font-weight: 600;
+            text-align: right;
+            background: #FFFFFF;
+        }
+
+        .converter-unit {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #64748B;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .converter-arrow {
+            text-align: center;
+            font-size: 25px;
+            color: #64748B;
+        }
+
+        .converter-note {
+            margin: 0 18px 18px;
+            padding: 10px 12px;
+            background: #FFFDF0;
+            border: 1px solid #FDE68A;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #92400E;
+            line-height: 1.5;
+        }
+
+        .quick-ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 12px;
+        }
+
+        .quick-ref {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: #FFFFFF;
+            padding: 13px;
+        }
+
+        .quick-ref-title {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 7px;
+        }
+
+        .quick-ref div {
+            font-size: 12px;
+            color: #64748B;
+            line-height: 1.65;
+        }
+
+        .hydraulic-helper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 15px 18px 18px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .hydraulic-helper .helper-title {
+            grid-column: 1 / -1;
+            font-family: 'Kanit', sans-serif;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .helper-box {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            padding: 10px;
+        }
+
+        .helper-box label {
+            display: block;
+            font-size: 11px;
+            color: #64748B;
+            margin-bottom: 4px;
+        }
+
+        .helper-box input {
+            max-width: none !important;
+            width: 100%;
+        }
+
+        .helper-result {
+            background: #FFFDF0;
+            border-color: #FDE68A;
+        }
+
+        @media (max-width: 800px) {
+            .converter-grid { grid-template-columns: 1fr; }
+            .converter-arrow { transform: rotate(90deg); }
+            .hydraulic-helper { grid-template-columns: 1fr 1fr; }
+        }
+
         @media print {
             body { padding: 0; background: white; }
             .dashboard-card { box-shadow: none; border: none; }
@@ -409,6 +585,7 @@
             <div id="btnTab2" class="nav-item" onclick="switchTab(2)">📈 2. NPV & Payback</div>
             <div id="btnTab3" class="nav-item" onclick="switchTab(3)">🚜 3. Fleet Productivity</div>
             <div id="btnTab4" class="nav-item" onclick="switchTab(4)">⚙️ 4. Spec Comparison</div>
+            <div id="btnTab5" class="nav-item" onclick="switchTab(5)">🔄 5. Unit Converter</div>
         </nav>
         
         <div class="controls-right">
@@ -748,6 +925,98 @@
         </div>
     </div>
 
+
+    <!-- PAGE 5: ENGINEERING UNIT CONVERTER -->
+    <div id="page5" class="content-padding tab-page">
+        <div class="mode-banner" style="display:block; background:#EFF6FF; border-color:#93C5FD; color:#1E40AF;">
+            💡 <strong>Product Specialist Unit Converter:</strong>
+            ใช้แปลงค่าที่เจอบ่อยตอนอ่าน Spec, ทำ Competitive Comparison, คุยกับ Sales/Customer และวิเคราะห์ Hydraulic / Engine Performance
+        </div>
+
+        <div class="converter-toolbar">
+            <label for="converterCategory">เลือกหมวด:</label>
+            <select id="converterCategory" class="converter-select" onchange="buildConverter()">
+                <option value="pressure">Pressure — bar / MPa / psi / kgf/cm²</option>
+                <option value="power">Power — kW / HP / PS</option>
+                <option value="flow">Hydraulic Flow — L/min / GPM</option>
+                <option value="displacement">Hydraulic Displacement — cc/rev / L/rev</option>
+                <option value="hydraulic">Hydraulic — Flow + RPM ↔ cc/rev</option>
+                <option value="torque">Torque — N·m / lb-ft / kgf·m</option>
+                <option value="force">Force — kN / N / kgf / tonf / lbf</option>
+                <option value="length">Length — mm / cm / m / inch / ft</option>
+                <option value="area">Area — m² / cm² / ft² / in²</option>
+                <option value="volume">Volume — L / m³ / US gal</option>
+                <option value="mass">Mass — kg / ton / lb</option>
+                <option value="speed">Speed — rpm / rps</option>
+                <option value="fuel">Fuel Consumption — L/h / L/100h</option>
+                <option value="temperature">Temperature — °C / °F / K</option>
+            </select>
+        </div>
+
+        <div id="converterArea"></div>
+
+        <div class="converter-card">
+            <div class="converter-card-header">⚡ Quick Reference สำหรับงาน Product Specialist</div>
+            <div class="quick-ref-grid" style="padding:15px;">
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Pressure</div>
+                    <div>1 MPa = 10 bar</div>
+                    <div>1 bar ≈ 14.504 psi</div>
+                    <div>1 MPa ≈ 145.038 psi</div>
+                    <div>1 kgf/cm² ≈ 0.980665 bar</div>
+                </div>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Power</div>
+                    <div>1 kW ≈ 1.341 HP</div>
+                    <div>1 HP ≈ 0.7457 kW</div>
+                    <div>1 PS ≈ 0.7355 kW</div>
+                    <div>1 kW ≈ 1.3596 PS</div>
+                </div>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Hydraulic Flow</div>
+                    <div>1 L/min ≈ 0.2642 US GPM</div>
+                    <div>1 US GPM ≈ 3.7854 L/min</div>
+                    <div>cc/rev = L/min × 1000 ÷ rpm</div>
+                    <div>L/min = cc/rev × rpm ÷ 1000</div>
+                </div>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Torque</div>
+                    <div>1 N·m ≈ 0.7376 lb-ft</div>
+                    <div>1 lb-ft ≈ 1.3558 N·m</div>
+                    <div>1 kgf·m ≈ 9.80665 N·m</div>
+                </div>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Force</div>
+                    <div>1 kN = 1,000 N</div>
+                    <div>1 tonf ≈ 9.80665 kN</div>
+                    <div>1 kN ≈ 101.972 kgf</div>
+                    <div>1 lbf ≈ 4.44822 N</div>
+                </div>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Length</div>
+                    <div>1 m = 1,000 mm</div>
+                    <div>1 inch = 25.4 mm</div>
+                    <div>1 ft = 12 inch = 304.8 mm</div>
+                    <div>1 m ≈ 3.28084 ft</div>
+                </div>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Volume / Capacity</div>
+                    <div>1 m³ = 1,000 L</div>
+                    <div>1 US gal ≈ 3.7854 L</div>
+                    <div>1 L ≈ 0.2642 US gal</div>
+                    <div>Bucket: m³ ↔ L × 1,000</div>
+                </div>
+                <div class="quick-ref">
+                    <div class="quick-ref-title">Machine Spec Thinking</div>
+                    <div>Power → Engine performance</div>
+                    <div>Torque → Turning / drive capability</div>
+                    <div>Pressure × Flow → Hydraulic power</div>
+                    <div>Flow ÷ RPM → Pump displacement</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <div class="dashboard-footer">
         <div>CATERPILLAR Competitive Intelligence & Financial Report</div>
@@ -779,6 +1048,7 @@
         document.getElementById('btnTab2').classList.remove('active');
         document.getElementById('btnTab3').classList.remove('active');
         document.getElementById('btnTab4').classList.remove('active');
+        document.getElementById('btnTab5').classList.remove('active');
 
         if (tabIndex === 1) {
             document.getElementById('page1').classList.add('active-page');
@@ -793,6 +1063,10 @@
             document.getElementById('page4').classList.add('active-page');
             document.getElementById('btnTab4').classList.add('active');
             compareSpecs();
+        } else if (tabIndex === 5) {
+            document.getElementById('page5').classList.add('active-page');
+            document.getElementById('btnTab5').classList.add('active');
+            buildConverter();
         }
     }
 
@@ -988,6 +1262,299 @@
         document.getElementById('unitSavingsCard').innerText = formatNumber(unitSavingsVal) + " บาท/ตัน";
     }
 
+
+    /* Engineering Unit Converter — Page 5 */
+    const converterUnits = {
+        pressure: {
+            title: "Pressure",
+            units: { bar: "bar", MPa: "MPa", psi: "psi", kgfcm2: "kgf/cm²" },
+            base: { bar: 1, MPa: 10, psi: 0.0689475729, kgfcm2: 0.980665 },
+            note: "สำหรับงาน Hydraulic: Pressure บอกแรงดันของระบบ แต่ไม่ได้บอก Flow. ต้องดู Pressure + Flow เพื่อประเมิน Hydraulic Power."
+        },
+        power: {
+            title: "Power",
+            units: { kW: "kW", HP: "HP", PS: "PS" },
+            base: { kW: 1, HP: 0.745699872, PS: 0.73549875 },
+            note: "HP = mechanical horsepower. PS = metric horsepower. เวลาเทียบ Spec ให้ดูด้วยว่าผู้ผลิตระบุ HP แบบใด."
+        },
+        flow: {
+            title: "Hydraulic Flow",
+            units: { Lmin: "L/min", GPM: "US GPM" },
+            base: { Lmin: 1, GPM: 3.785411784 },
+            note: "Flow rate ใช้ดูปริมาณน้ำมันที่ปั๊มส่งต่อเวลา. 1 US GPM ≈ 3.785 L/min."
+        },
+        displacement: {
+            title: "Hydraulic Displacement",
+            units: { ccrev: "cc/rev", Lrev: "L/rev" },
+            base: { ccrev: 1, Lrev: 1000 },
+            note: "Pump/Motor displacement คือปริมาตรน้ำมันต่อการหมุน 1 รอบ. 1 L/rev = 1,000 cc/rev."
+        },
+        torque: {
+            title: "Torque",
+            units: { Nm: "N·m", lbft: "lb-ft", kgfm: "kgf·m" },
+            base: { Nm: 1, lbft: 1.355817948, kgfm: 9.80665 },
+            note: "Torque = แรงบิด. ใช้เทียบ Engine Torque, Final Drive, Swing Motor ฯลฯ"
+        },
+        force: {
+            title: "Force",
+            units: { kN: "kN", N: "N", kgf: "kgf", tonf: "tonf", lbf: "lbf" },
+            base: { kN: 1, N: 0.001, kgf: 0.00980665, tonf: 9.80665, lbf: 0.004448221615 },
+            note: "Force ใช้กับ digging force, bucket force, breakout force, lift force และ cylinder force."
+        },
+        length: {
+            title: "Length",
+            units: { mm: "mm", cm: "cm", m: "m", inch: "inch", ft: "ft" },
+            base: { mm: 1, cm: 10, m: 1000, inch: 25.4, ft: 304.8 },
+            note: "1 inch = 25.4 mm. 1 ft = 304.8 mm."
+        },
+        area: {
+            title: "Area",
+            units: { m2: "m²", cm2: "cm²", ft2: "ft²", in2: "in²" },
+            base: { m2: 1, cm2: 0.0001, ft2: 0.09290304, in2: 0.00064516 },
+            note: "พื้นที่หน้าตัด Cylinder ใช้คำนวณแรง: Force = Pressure × Area."
+        },
+        volume: {
+            title: "Volume",
+            units: { L: "L", m3: "m³", gal: "US gal" },
+            base: { L: 1, m3: 1000, gal: 3.785411784 },
+            note: "ใช้กับ fuel tank, hydraulic tank, engine oil, coolant, bucket capacity ฯลฯ"
+        },
+        mass: {
+            title: "Mass",
+            units: { kg: "kg", ton: "metric ton", lb: "lb" },
+            base: { kg: 1, ton: 1000, lb: 0.45359237 },
+            note: "1 metric ton = 1,000 kg. ระวัง ton (metric) กับ US short ton / imperial ton."
+        },
+        speed: {
+            title: "Rotational Speed",
+            units: { rpm: "rpm", rps: "rev/s" },
+            base: { rpm: 1, rps: 60 },
+            note: "Hydraulic displacement relation: L/min = cc/rev × rpm ÷ 1000."
+        },
+        fuel: {
+            title: "Fuel Rate",
+            units: { Lh: "L/h", L100h: "L/100 h" },
+            base: { Lh: 1, L100h: 0.01 },
+            note: "L/100h เป็นการแสดงปริมาณเชื้อเพลิงต่อ 100 ชั่วโมง: L/100h ÷ 100 = L/h."
+        }
+    };
+
+    // Display all converter results with exactly 2 decimal places.
+    // Keep thousands separators for readability.
+    function fmtConv(n) {
+        if (!Number.isFinite(n)) return "";
+        return Number(n).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+            useGrouping: true
+        });
+    }
+
+    // Read numbers safely from both plain inputs and formatted results
+    // such as "1,234,567.89".
+    function parseConvNumber(value) {
+        if (value === null || value === undefined || value === '') return NaN;
+        const cleaned = String(value).replace(/,/g, '').trim();
+        return Number(cleaned);
+    }
+
+    function buildConverter() {
+        const category = document.getElementById('converterCategory').value;
+        const area = document.getElementById('converterArea');
+
+        if (category === 'hydraulic') {
+            area.innerHTML = `
+                <div class="converter-card">
+                    <div class="converter-card-header">🔧 Hydraulic Pump Relationship: Flow ↔ RPM ↔ Displacement</div>
+                    <div class="hydraulic-helper">
+                        <div class="helper-title">สูตรหลัก: <strong>Flow (L/min) = Displacement (cc/rev) × RPM ÷ 1,000</strong></div>
+
+                        <div class="helper-box">
+                            <label>Flow (L/min)</label>
+                            <input type="number" id="hydFlow" value="300" step="1" oninput="calcHydraulic()">
+                        </div>
+                        <div class="helper-box">
+                            <label>RPM</label>
+                            <input type="number" id="hydRpm" value="1800" step="10" oninput="calcHydraulic()">
+                        </div>
+                        <div class="helper-box helper-result">
+                            <label>Calculated Displacement</label>
+                            <input type="text" id="hydCc" value="166.67 cc/rev" readonly>
+                        </div>
+                        <div class="helper-box">
+                            <label>Ideal Hydraulic Power</label>
+                            <input type="text" id="hydPower" value="150.00 kW" readonly>
+                        </div>
+
+                        <div class="helper-title" style="margin-top:4px;">Reverse: ถ้ารู้ cc/rev + RPM → หา L/min</div>
+                        <div class="helper-box">
+                            <label>Displacement (cc/rev)</label>
+                            <input type="number" id="revCc" value="166.67" step="0.01" oninput="calcHydraulicReverse()">
+                        </div>
+                        <div class="helper-box">
+                            <label>RPM</label>
+                            <input type="number" id="revRpm" value="1800" step="10" oninput="calcHydraulicReverse()">
+                        </div>
+                        <div class="helper-box helper-result">
+                            <label>Calculated Flow</label>
+                            <input type="text" id="revFlow" value="300.01 L/min" readonly>
+                        </div>
+                        <div class="helper-box">
+                            <label>Hydraulic Power @ Pressure</label>
+                            <input type="number" id="hydPressure" value="250" step="1" oninput="calcHydraulicReverse()" placeholder="bar">
+                            <div class="remark-text" style="margin-top:5px;" id="hydPower2">125.00 kW ideal</div>
+                        </div>
+                    </div>
+                    <div class="converter-note">
+                        ⚠️ <strong>สำคัญ:</strong> cc/rev ไม่สามารถแปลงเป็น L/min ได้จากค่าเดียว ต้องรู้ <strong>RPM</strong> ด้วย.
+                        และ Hydraulic Power จริงต้องพิจารณา efficiency ของ pump/motor/system ด้วย.
+                    </div>
+                </div>
+            `;
+            calcHydraulic();
+            calcHydraulicReverse();
+            return;
+        }
+
+        const data = converterUnits[category];
+        const keys = Object.keys(data.units);
+        const options = keys.map(k => `<option value="${k}">${data.units[k]}</option>`).join('');
+
+        area.innerHTML = `
+            <div class="converter-card">
+                <div class="converter-card-header">🔄 ${data.title} — แปลงไป/กลับได้ทันที</div>
+                <div class="converter-grid">
+                    <div class="converter-box">
+                        <label>Input</label>
+                        <input type="number" id="convInput" value="1" step="any" oninput="convertUnit()">
+                        <div class="converter-unit">
+                            <select id="convFrom" class="converter-select" style="min-width:100%; margin-top:7px;" onchange="convertUnit()">${options}</select>
+                        </div>
+                    </div>
+                    <div class="converter-arrow">⇄</div>
+                    <div class="converter-box">
+                        <label>Output</label>
+                        <input type="text" id="convOutput" value="1.00" inputmode="decimal" oninput="convertReverse()">
+                        <div class="converter-unit">
+                            <select id="convTo" class="converter-select" style="min-width:100%; margin-top:7px;" onchange="convertUnit()">${options}</select>
+                        </div>
+                    </div>
+                </div>
+                <div class="converter-note">💡 ${data.note}</div>
+            </div>
+        `;
+
+        // Useful default pairings
+        const pairs = {
+            pressure: ['bar','MPa'],
+            power: ['kW','HP'],
+            flow: ['Lmin','GPM'],
+            displacement: ['ccrev','Lrev'],
+            torque: ['Nm','lbft'],
+            force: ['kN','tonf'],
+            length: ['mm','inch'],
+            area: ['m2','ft2'],
+            volume: ['L','m3'],
+            mass: ['kg','ton'],
+            speed: ['rpm','rps'],
+            fuel: ['Lh','L100h'],
+            temperature: ['C','F']
+        };
+        if (pairs[category]) {
+            // Temperature handled separately below; all other categories have standard unit maps.
+            if (category === 'temperature') {
+                // not currently reached because temperature has no converterUnits entry
+            } else {
+                document.getElementById('convFrom').value = pairs[category][0];
+                document.getElementById('convTo').value = pairs[category][1];
+            }
+        }
+        convertUnit();
+    }
+
+    function convertUnit() {
+        const category = document.getElementById('converterCategory').value;
+        if (category === 'hydraulic') return;
+        const data = converterUnits[category];
+        if (!data) return;
+
+        const input = parseFloat(document.getElementById('convInput').value);
+        const from = document.getElementById('convFrom').value;
+        const to = document.getElementById('convTo').value;
+
+        if (!isFinite(input)) {
+            document.getElementById('convOutput').value = '';
+            return;
+        }
+
+        // Temperature is a special non-linear conversion.
+        if (category === 'temperature') {
+            document.getElementById('convOutput').value = fmtTemperature(input, from, to);
+            return;
+        }
+
+        const baseValue = input * data.base[from];
+        const result = baseValue / data.base[to];
+        document.getElementById('convOutput').value = fmtConv(result);
+    }
+
+    function convertReverse() {
+        const category = document.getElementById('converterCategory').value;
+        if (category === 'hydraulic') return;
+        const data = converterUnits[category];
+        if (!data) return;
+
+        const output = parseConvNumber(document.getElementById('convOutput').value);
+        const from = document.getElementById('convFrom').value;
+        const to = document.getElementById('convTo').value;
+
+        if (!isFinite(output)) {
+            document.getElementById('convInput').value = '';
+            return;
+        }
+
+        if (category === 'temperature') {
+            document.getElementById('convInput').value = fmtTemperature(output, to, from);
+            return;
+        }
+
+        const baseValue = output * data.base[to];
+        const result = baseValue / data.base[from];
+        document.getElementById('convInput').value = fmtConv(result);
+    }
+
+    function calcHydraulic() {
+        const flow = parseFloat(document.getElementById('hydFlow')?.value) || 0;
+        const rpm = parseFloat(document.getElementById('hydRpm')?.value) || 0;
+        const cc = rpm > 0 ? (flow * 1000 / rpm) : 0;
+        const power = flow * (parseFloat(document.getElementById('hydPressure')?.value) || 250) / 600;
+
+        if (document.getElementById('hydCc')) document.getElementById('hydCc').value = fmtConv(cc) + " cc/rev";
+        if (document.getElementById('hydPower')) document.getElementById('hydPower').value = fmtConv(power) + " kW";
+    }
+
+    function calcHydraulicReverse() {
+        const cc = parseFloat(document.getElementById('revCc')?.value) || 0;
+        const rpm = parseFloat(document.getElementById('revRpm')?.value) || 0;
+        const flow = cc * rpm / 1000;
+        const pressure = parseFloat(document.getElementById('hydPressure')?.value) || 0;
+        const power = flow * pressure / 600;
+
+        if (document.getElementById('revFlow')) document.getElementById('revFlow').value = fmtConv(flow) + " L/min";
+        if (document.getElementById('hydPower2')) document.getElementById('hydPower2').innerText = fmtConv(power) + " kW ideal";
+    }
+
+    function fmtTemperature(value, from, to) {
+        let c;
+        if (from === 'C') c = value;
+        else if (from === 'F') c = (value - 32) * 5 / 9;
+        else c = value - 273.15;
+
+        if (to === 'C') return fmtConv(c);
+        if (to === 'F') return fmtConv(c * 9 / 5 + 32);
+        return fmtConv(c + 273.15);
+    }
+
     /* Compare Specs Logic (Page 4 Auto Highlight) */
     function compareSpecs() {
         const hpComp = parseFloat(document.getElementById('specHpComp').value) || 0;
@@ -1014,6 +1581,7 @@
     window.onload = function() {
         setDefaultDate();
         calculateTCO();
+        buildConverter();
     };
 </script>
 
