@@ -537,61 +537,180 @@
             border-color: #FDE68A;
         }
 
-        /* Responsive layout: desktop / tablet / phone */
-        @media (max-width: 900px) {
-            body { padding: 10px; }
-            .dashboard-card { border-radius: 8px; }
-            .header { padding: 16px 18px; }
-            .header-top { gap: 12px; }
-            .header h1 { font-size: 19px; }
-            .client-info-bar { grid-template-columns: 1.5fr 1fr 1fr; gap: 10px; }
-            .control-panel { align-items: stretch; }
-            .nav-bar { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
-            .nav-item { flex: 0 0 auto; white-space: nowrap; }
-            .controls-right { width: 100%; justify-content: flex-end; flex-wrap: wrap; }
-            .content-padding { padding: 18px; }
-            .tco-table, .spec-table { min-width: 760px; }
-            .table-wrapper, .spec-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        }
-
         @media (max-width: 800px) {
             .converter-grid { grid-template-columns: 1fr; }
             .converter-arrow { transform: rotate(90deg); }
             .hydraulic-helper { grid-template-columns: 1fr 1fr; }
-            .summary-container { grid-template-columns: 1fr 1fr; }
         }
 
-        @media (max-width: 600px) {
-            body { padding: 0; }
-            .dashboard-card { width: 100%; max-width: none; border-radius: 0; border-left: 0; border-right: 0; }
-            .header { padding: 13px 12px; gap: 10px; border-bottom-width: 4px; }
-            .header-top { flex-direction: column; align-items: stretch; }
-            .header h1 { font-size: 16px; line-height: 1.35; }
-            .btn-export { width: 100%; }
-            .client-info-bar { grid-template-columns: 1fr; gap: 8px; padding: 10px; }
-            .control-panel { padding: 0 10px 8px; gap: 6px; }
-            .nav-bar { order: 1; }
-            .controls-right { order: 2; padding: 4px 0 0; gap: 7px; justify-content: stretch; }
-            .toggle-wrapper { flex: 1; justify-content: center; }
-            .scenario-panel { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-            .btn-scenario { width: 100%; padding: 7px 4px; font-size: 11px; }
-            .nav-item { font-size: 12px; padding: 10px 12px; }
-            .content-padding { padding: 12px; }
-            .summary-container { grid-template-columns: 1fr; }
-            .card-kpi .kpi-value { font-size: 21px; }
-            .quick-ref-grid { grid-template-columns: 1fr; }
-            .hydraulic-helper { grid-template-columns: 1fr; }
-            .converter-grid { padding: 12px; gap: 8px; }
-            .converter-box { padding: 10px; }
-            .converter-box input { font-size: 16px; }
-            .converter-note { margin: 0 12px 12px; }
-            .dashboard-footer { padding: 12px; flex-direction: column; gap: 5px; text-align: center; }
+        /* ============ FINANCE CALCULATOR (Quotation & Installment) ============ */
+        .finance-panel-card {
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            background: #FFFFFF;
         }
 
-        @media (min-width: 601px) {
-            /* Keep desktop/tablet comfortable while allowing horizontal tables. */
-            .table-wrapper, .spec-table-wrapper { overflow-x: auto; }
+        .finance-panel-header {
+            background: #1E293B;
+            color: #FFFFFF;
+            padding: 11px 15px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
         }
+
+        .finance-panel-header .machine-badge {
+            background: var(--cat-yellow);
+            color: var(--cat-black);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .finance-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            padding: 18px;
+        }
+
+        .finance-grid.wide-3 { grid-template-columns: 1.3fr 1fr 1fr; }
+
+        .finance-field label {
+            display: block;
+            font-family: 'Kanit', sans-serif;
+            font-size: 12px;
+            color: #64748B;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .finance-field select,
+        .finance-field input[type="text"],
+        .finance-field input[type="number"] {
+            width: 100%;
+            max-width: none !important;
+            padding: 9px 10px;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 14px;
+            background-color: #FAFAFA;
+            text-align: left;
+        }
+
+        .finance-field input[readonly] {
+            background-color: #FFFDF0;
+            border-color: #FDE68A;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .finance-kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 12px;
+            padding: 0 18px 18px;
+        }
+
+        .finance-kpi {
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: left;
+        }
+
+        .finance-kpi .kpi-title { font-size: 11.5px; color: var(--text-muted); font-weight: 500; margin-bottom: 6px; text-transform: uppercase; }
+        .finance-kpi .kpi-value { font-family: 'Kanit', sans-serif; font-size: 20px; font-weight: 700; color: var(--text-dark); }
+        .finance-kpi.emphasis { background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border-color: var(--cat-yellow); }
+        .finance-kpi.emphasis .kpi-value { color: #92400E; }
+        .finance-kpi.danger .kpi-value { color: var(--danger-color); }
+        .finance-kpi.success .kpi-value { color: var(--success-color); }
+
+        .finance-actions-bar {
+            display: flex;
+            align-items: flex-end;
+            gap: 14px;
+            padding: 0 18px 18px;
+            flex-wrap: wrap;
+        }
+
+        .finance-actions-bar .finance-field { flex: 1; min-width: 220px; margin-bottom: 0; }
+
+        .btn-quote {
+            background: var(--cat-yellow);
+            color: var(--cat-black);
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        .btn-quote:hover { background: #E6B800; }
+
+        .btn-print-quote {
+            background: #1E293B;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .quotation-box {
+            display: none;
+            margin: 0 18px 18px;
+            border: 1.5px dashed var(--cat-yellow);
+            border-radius: 8px;
+            padding: 18px 20px;
+            background: #FFFEF7;
+        }
+
+        .quotation-box.visible { display: block; }
+
+        .quotation-box h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 15px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--cat-yellow);
+        }
+
+        .quotation-rows { display: grid; grid-template-columns: 1fr 1fr; row-gap: 8px; column-gap: 20px; margin-bottom: 14px; }
+        .quotation-row { display: flex; justify-content: space-between; font-size: 13.5px; border-bottom: 1px dotted var(--border-color); padding-bottom: 4px; }
+        .quotation-row .q-label { color: var(--text-muted); }
+        .quotation-row .q-value { font-weight: 600; color: var(--text-dark); font-family: 'Kanit', sans-serif; }
+        .quotation-row.total .q-value { color: #92400E; font-size: 15px; }
+
+        @media (max-width: 800px) {
+            .finance-grid, .finance-grid.wide-3 { grid-template-columns: 1fr; }
+            .quotation-rows { grid-template-columns: 1fr; }
+        }
+
+        /* Standalone print-only quotation sheet (used by printQuotation()) */
+        .quotation-print-only { display: none; }
 
         @media print {
             body { padding: 0; background: white; }
@@ -599,6 +718,24 @@
             .control-panel, .btn-export { display: none !important; }
             .tab-page { display: block !important; page-break-after: always; }
             .client-info-item input { border: none !important; background: transparent !important; color: #000 !important; }
+
+            /* When printing a single quotation, hide the whole dashboard and show only the quotation sheet */
+            body.printing-quotation .dashboard-card { display: none !important; }
+            body.printing-quotation .quotation-print-only {
+                display: block !important;
+                padding: 10px 20px;
+            }
+            .quotation-print-only .qp-header {
+                display: flex; justify-content: space-between; align-items: center;
+                border-bottom: 4px solid var(--cat-yellow); padding-bottom: 14px; margin-bottom: 18px;
+            }
+            .quotation-print-only .qp-header h1 { font-family: 'Kanit', sans-serif; font-size: 20px; }
+            .quotation-print-only .qp-rows { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+            .quotation-print-only .qp-rows td { padding: 9px 6px; border-bottom: 1px solid #E2E8F0; font-size: 14px; }
+            .quotation-print-only .qp-rows td:first-child { color: #64748B; width: 45%; }
+            .quotation-print-only .qp-rows td:last-child { font-weight: 700; text-align: right; font-family: 'Kanit', sans-serif; }
+            .quotation-print-only .qp-total-row td { background: #FFFBEB; font-size: 16px; color: #92400E; }
+            .quotation-print-only .qp-footer { margin-top: 30px; font-size: 11.5px; color: #64748B; }
         }
     </style>
 </head>
@@ -634,8 +771,9 @@
             <div id="btnTab1" class="nav-item active" onclick="switchTab(1)">📊 1. TCO & PM Cost</div>
             <div id="btnTab2" class="nav-item" onclick="switchTab(2)">📈 2. NPV & Payback</div>
             <div id="btnTab3" class="nav-item" onclick="switchTab(3)">🚜 3. Fleet Productivity</div>
-            <div id="btnTab4" class="nav-item" onclick="switchTab(4)">⚙️ 4. Spec Comparison</div>
-            <div id="btnTab5" class="nav-item" onclick="switchTab(5)">🔄 5. Unit Converter</div>
+            <div id="btnTab4" class="nav-item" onclick="switchTab(4)">💰 4. Finance Calculator</div>
+            <div id="btnTab5" class="nav-item" onclick="switchTab(5)">⚙️ 5. Spec Comparison</div>
+            <div id="btnTab6" class="nav-item" onclick="switchTab(6)">🔄 6. Unit Converter</div>
         </nav>
         
         <div class="controls-right">
@@ -910,8 +1048,113 @@
         </div>
     </div>
 
-    <!-- PAGE 4: SPECIFICATION COMPARISON (NEW TAB) -->
+    <!-- PAGE 4: FINANCE CALCULATOR (Quotation & Installment) -->
     <div id="page4" class="content-padding tab-page">
+
+        <div class="finance-panel-card">
+            <div class="finance-panel-header">
+                <span>🚜 เลือกเครื่องจักร (Machine Selector)</span>
+                <span class="machine-badge" id="financeMachineTypeBadge">Excavator</span>
+            </div>
+            <div class="finance-grid wide-3">
+                <div class="finance-field">
+                    <label>รุ่นเครื่องจักร (Machine Model)</label>
+                    <select id="financeMachineSelect" onchange="onFinanceMachineChange()"></select>
+                </div>
+                <div class="finance-field">
+                    <label>ราคาเครื่องจักร (Selling Price)</label>
+                    <input type="text" id="financeSellingPriceDisplay" readonly value="฿ 0">
+                </div>
+                <div class="finance-field">
+                    <label>อัตราสิ้นเปลืองน้ำมัน (Fuel Consumption)</label>
+                    <input type="text" id="financeFuelDisplay" readonly value="- ลิตร/ชม.">
+                </div>
+            </div>
+        </div>
+
+        <div class="finance-panel-card">
+            <div class="finance-panel-header">
+                <span>🧮 เงื่อนไขการผ่อนชำระ (Installment Terms)</span>
+            </div>
+            <div class="finance-grid">
+                <div class="finance-field">
+                    <label>เงินดาวน์ (Down Payment %)</label>
+                    <select id="financeDownPaymentPercent" onchange="calculateFinance()">
+                        <option value="10">10%</option>
+                        <option value="15">15%</option>
+                        <option value="20" selected>20%</option>
+                        <option value="25">25%</option>
+                        <option value="30">30%</option>
+                        <option value="35">35%</option>
+                    </select>
+                </div>
+                <div class="finance-field">
+                    <label>ระยะเวลาผ่อน (Lease Term)</label>
+                    <select id="financeTermMonths" onchange="calculateFinance()">
+                        <option value="24">24 เดือน</option>
+                        <option value="36">36 เดือน</option>
+                        <option value="48" selected>48 เดือน</option>
+                        <option value="60">60 เดือน</option>
+                        <option value="72">72 เดือน</option>
+                        <option value="84">84 เดือน</option>
+                    </select>
+                </div>
+                <div class="finance-field">
+                    <label>อัตราดอกเบี้ย (Interest Rate % ต่อปี)</label>
+                    <input type="number" id="financeInterestRate" step="0.01" oninput="calculateFinance()">
+                </div>
+            </div>
+
+            <div class="finance-kpi-strip">
+                <div class="finance-kpi">
+                    <div class="kpi-title">Down Payment</div>
+                    <div id="kpiDownPayment" class="kpi-value">฿ 0</div>
+                </div>
+                <div class="finance-kpi">
+                    <div class="kpi-title">Finance Amount</div>
+                    <div id="kpiFinanceAmount" class="kpi-value">฿ 0</div>
+                </div>
+                <div class="finance-kpi emphasis">
+                    <div class="kpi-title">Monthly Installment</div>
+                    <div id="kpiMonthlyInstallment" class="kpi-value">฿ 0 / เดือน</div>
+                </div>
+                <div class="finance-kpi danger">
+                    <div class="kpi-title">Total Interest</div>
+                    <div id="kpiTotalInterest" class="kpi-value">฿ 0</div>
+                </div>
+                <div class="finance-kpi">
+                    <div class="kpi-title">Total Payment</div>
+                    <div id="kpiTotalPayment" class="kpi-value">฿ 0</div>
+                </div>
+            </div>
+
+            <div class="finance-actions-bar">
+                <div class="finance-field">
+                    <label>ชื่อลูกค้า (Customer Name)</label>
+                    <input type="text" id="financeCustomerName" value="">
+                </div>
+                <button class="btn-quote" onclick="generateQuotation()">📄 Generate Quotation</button>
+            </div>
+
+            <div id="quotationBox" class="quotation-box">
+                <h3>📄 ใบเสนอราคาโดยสรุป (Quotation Summary)</h3>
+                <div class="quotation-rows">
+                    <div class="quotation-row"><span class="q-label">Customer</span><span class="q-value" id="qCustomer">-</span></div>
+                    <div class="quotation-row"><span class="q-label">Machine</span><span class="q-value" id="qMachine">-</span></div>
+                    <div class="quotation-row"><span class="q-label">Price</span><span class="q-value" id="qPrice">-</span></div>
+                    <div class="quotation-row"><span class="q-label">Down Payment</span><span class="q-value" id="qDownPayment">-</span></div>
+                    <div class="quotation-row"><span class="q-label">Finance Amount</span><span class="q-value" id="qFinanceAmount">-</span></div>
+                    <div class="quotation-row"><span class="q-label">Term</span><span class="q-value" id="qTerm">-</span></div>
+                    <div class="quotation-row"><span class="q-label">Interest Rate</span><span class="q-value" id="qInterestRate">-</span></div>
+                    <div class="quotation-row total"><span class="q-label">Monthly Installment</span><span class="q-value" id="qMonthlyInstallment">-</span></div>
+                </div>
+                <button class="btn-print-quote" onclick="printQuotation()">🖨️ Print / Save as PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 5: SPECIFICATION COMPARISON -->
+    <div id="page5" class="content-padding tab-page">
         <table class="tco-table">
             <thead>
                 <tr>
@@ -976,8 +1219,8 @@
     </div>
 
 
-    <!-- PAGE 5: ENGINEERING UNIT CONVERTER -->
-    <div id="page5" class="content-padding tab-page">
+    <!-- PAGE 6: ENGINEERING UNIT CONVERTER -->
+    <div id="page6" class="content-padding tab-page">
         <div class="mode-banner" style="display:block; background:#EFF6FF; border-color:#93C5FD; color:#1E40AF;">
             💡 <strong>Product Specialist Unit Converter:</strong>
             ใช้แปลงค่าที่เจอบ่อยตอนอ่าน Spec, ทำ Competitive Comparison, คุยกับ Sales/Customer และวิเคราะห์ Hydraulic / Engine Performance
@@ -1075,6 +1318,231 @@
 </div>
 
 <script>
+    /* =====================================================================
+       MACHINE_DATABASE — Single Source of Truth
+       ทุกหน้า (TCO / NPV / Fleet Productivity / Finance Calculator /
+       Spec Comparison / Quotation) ให้ดึงข้อมูลรุ่นเครื่องจักรจาก Object
+       นี้เท่านั้น ห้าม Hardcode ราคา/ดอกเบี้ย/ข้อมูลรุ่นซ้ำไว้ที่อื่น
+       ===================================================================== */
+    const MACHINE_DATABASE = {
+        "320GC": {
+            brand: "CAT", model: "320 GC", machineType: "Excavator",
+            sellingPrice: 4300000,
+            finance: { downPaymentPercent: 20, interestRate: 4.25, defaultTerm: 48 },
+            operation: { fuelConsumption: 15.8 }
+        },
+        "320": {
+            brand: "CAT", model: "320", machineType: "Excavator",
+            sellingPrice: 4500000,
+            finance: { downPaymentPercent: 20, interestRate: 4.25, defaultTerm: 48 },
+            operation: { fuelConsumption: 16.2 }
+        },
+        "323": {
+            brand: "CAT", model: "323", machineType: "Excavator",
+            sellingPrice: 5600000,
+            finance: { downPaymentPercent: 20, interestRate: 4.35, defaultTerm: 48 },
+            operation: { fuelConsumption: 17.5 }
+        },
+        "330": {
+            brand: "CAT", model: "330", machineType: "Excavator",
+            sellingPrice: 8900000,
+            finance: { downPaymentPercent: 25, interestRate: 4.50, defaultTerm: 60 },
+            operation: { fuelConsumption: 22.4 }
+        },
+        "336": {
+            brand: "CAT", model: "336", machineType: "Excavator",
+            sellingPrice: 11500000,
+            finance: { downPaymentPercent: 25, interestRate: 4.50, defaultTerm: 60 },
+            operation: { fuelConsumption: 25.6 }
+        },
+        "428": {
+            brand: "CAT", model: "428", machineType: "Backhoe Loader",
+            sellingPrice: 2450000,
+            finance: { downPaymentPercent: 15, interestRate: 4.00, defaultTerm: 48 },
+            operation: { fuelConsumption: 9.8 }
+        },
+        "420XE": {
+            brand: "CAT", model: "420 XE", machineType: "Backhoe Loader",
+            sellingPrice: 2850000,
+            finance: { downPaymentPercent: 15, interestRate: 4.00, defaultTerm: 48 },
+            operation: { fuelConsumption: 8.6 }
+        },
+        "950GC": {
+            brand: "CAT", model: "950 GC", machineType: "Wheel Loader",
+            sellingPrice: 6200000,
+            finance: { downPaymentPercent: 20, interestRate: 4.50, defaultTerm: 48 },
+            operation: { fuelConsumption: 18.5 }
+        },
+        "966GC": {
+            brand: "CAT", model: "966 GC", machineType: "Wheel Loader",
+            sellingPrice: 8100000,
+            finance: { downPaymentPercent: 20, interestRate: 4.50, defaultTerm: 60 },
+            operation: { fuelConsumption: 21.3 }
+        }
+    };
+
+    /* =====================================================================
+       CALCULATION_ENGINE — สูตรการเงินจริง (Amortizing Loan / PMT Formula)
+       PMT = P × r × (1+r)^n / ((1+r)^n − 1)
+       P = Finance Amount, r = Monthly Interest Rate, n = Number of Months
+       ===================================================================== */
+    const CALCULATION_ENGINE = {
+        pmt: function (principal, annualRatePercent, months) {
+            const r = (annualRatePercent / 100) / 12;
+            if (!months || months <= 0) return 0;
+            if (r === 0) return principal / months;
+            const factor = Math.pow(1 + r, months);
+            return (principal * r * factor) / (factor - 1);
+        },
+        computeQuote: function (sellingPrice, downPaymentPercent, annualRatePercent, months) {
+            const downPayment = sellingPrice * (downPaymentPercent / 100);
+            const financeAmount = sellingPrice - downPayment;
+            const monthlyInstallment = this.pmt(financeAmount, annualRatePercent, months);
+            const totalOfPayments = monthlyInstallment * months;
+            const totalInterest = totalOfPayments - financeAmount;
+            const totalPayment = downPayment + totalOfPayments;
+            return { downPayment, financeAmount, monthlyInstallment, totalInterest, totalPayment };
+        }
+    };
+
+    /* =====================================================================
+       UI_CONTROLLER — Finance Calculator tab: populate + render
+       ===================================================================== */
+    function currencyTHB(num) {
+        return "฿ " + Math.round(num || 0).toLocaleString('en-US');
+    }
+
+    function populateFinanceMachineSelect() {
+        const select = document.getElementById('financeMachineSelect');
+        if (!select) return;
+        select.innerHTML = '';
+        Object.keys(MACHINE_DATABASE).forEach(function (key) {
+            const m = MACHINE_DATABASE[key];
+            const opt = document.createElement('option');
+            opt.value = key;
+            opt.textContent = m.brand + ' ' + m.model + ' — ' + m.machineType;
+            select.appendChild(opt);
+        });
+        select.value = "950GC";
+
+        const customerInput = document.getElementById('financeCustomerName');
+        if (customerInput && !customerInput.value) {
+            customerInput.value = document.getElementById('clientName').value || '';
+        }
+
+        onFinanceMachineChange();
+    }
+
+    function onFinanceMachineChange() {
+        const key = document.getElementById('financeMachineSelect').value;
+        const machine = MACHINE_DATABASE[key];
+        if (!machine) return;
+
+        document.getElementById('financeMachineTypeBadge').innerText = machine.machineType;
+        document.getElementById('financeSellingPriceDisplay').value = currencyTHB(machine.sellingPrice);
+        document.getElementById('financeFuelDisplay').value =
+            (machine.operation ? machine.operation.fuelConsumption : '-') + ' ลิตร/ชม.';
+
+        document.getElementById('financeDownPaymentPercent').value = String(machine.finance.downPaymentPercent);
+        document.getElementById('financeTermMonths').value = String(machine.finance.defaultTerm);
+        document.getElementById('financeInterestRate').value = machine.finance.interestRate;
+
+        // Hide any previously generated quotation when switching machine
+        document.getElementById('quotationBox').classList.remove('visible');
+
+        calculateFinance();
+    }
+
+    function calculateFinance() {
+        const key = document.getElementById('financeMachineSelect').value;
+        const machine = MACHINE_DATABASE[key];
+        if (!machine) return;
+
+        const downPaymentPercent = parseFloat(document.getElementById('financeDownPaymentPercent').value) || 0;
+        const months = parseInt(document.getElementById('financeTermMonths').value) || 0;
+        const interestRate = parseFloat(document.getElementById('financeInterestRate').value) || 0;
+
+        const result = CALCULATION_ENGINE.computeQuote(machine.sellingPrice, downPaymentPercent, interestRate, months);
+
+        document.getElementById('kpiDownPayment').innerText = currencyTHB(result.downPayment);
+        document.getElementById('kpiFinanceAmount').innerText = currencyTHB(result.financeAmount);
+        document.getElementById('kpiMonthlyInstallment').innerText = currencyTHB(result.monthlyInstallment) + ' / เดือน';
+        document.getElementById('kpiTotalInterest').innerText = currencyTHB(result.totalInterest);
+        document.getElementById('kpiTotalPayment').innerText = currencyTHB(result.totalPayment);
+    }
+
+    /* =====================================================================
+       EXPORT_MODULE — Generate Quotation + Print/PDF
+       ===================================================================== */
+    function generateQuotation() {
+        const key = document.getElementById('financeMachineSelect').value;
+        const machine = MACHINE_DATABASE[key];
+        if (!machine) return;
+
+        const downPaymentPercent = parseFloat(document.getElementById('financeDownPaymentPercent').value) || 0;
+        const months = parseInt(document.getElementById('financeTermMonths').value) || 0;
+        const interestRate = parseFloat(document.getElementById('financeInterestRate').value) || 0;
+        const result = CALCULATION_ENGINE.computeQuote(machine.sellingPrice, downPaymentPercent, interestRate, months);
+
+        const customerName = document.getElementById('financeCustomerName').value ||
+            document.getElementById('clientName').value || '-';
+        const machineLabel = machine.brand + ' ' + machine.model + ' (' + machine.machineType + ')';
+
+        document.getElementById('qCustomer').innerText = customerName;
+        document.getElementById('qMachine').innerText = machineLabel;
+        document.getElementById('qPrice').innerText = currencyTHB(machine.sellingPrice);
+        document.getElementById('qDownPayment').innerText = currencyTHB(result.downPayment) + ' (' + downPaymentPercent + '%)';
+        document.getElementById('qFinanceAmount').innerText = currencyTHB(result.financeAmount);
+        document.getElementById('qTerm').innerText = months + ' เดือน';
+        document.getElementById('qInterestRate').innerText = interestRate + ' % ต่อปี';
+        document.getElementById('qMonthlyInstallment').innerText = currencyTHB(result.monthlyInstallment) + ' / เดือน';
+
+        document.getElementById('quotationBox').classList.add('visible');
+        document.getElementById('quotationBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Build the hidden print-only sheet so it stays in sync with the on-screen summary
+        buildQuotationPrintSheet(customerName, machineLabel, machine, downPaymentPercent, months, interestRate, result);
+    }
+
+    function buildQuotationPrintSheet(customerName, machineLabel, machine, downPaymentPercent, months, interestRate, result) {
+        const salesName = document.getElementById('salesName').value || 'Product Specialist';
+        const reportDate = document.getElementById('reportDate').value || '';
+
+        const html = `
+            <div class="qp-header">
+                <div>
+                    <h1>🚜 ใบเสนอราคาเครื่องจักร CATERPILLAR</h1>
+                    <div style="font-size:12px;color:#64748B;margin-top:4px;">Metro Machinery Group — Sales Enablement Platform</div>
+                </div>
+                <div style="text-align:right;font-size:12px;color:#64748B;">
+                    วันที่: ${reportDate}<br>ผู้จัดทำ: ${salesName}
+                </div>
+            </div>
+            <table class="qp-rows">
+                <tr><td>ลูกค้า (Customer)</td><td>${customerName}</td></tr>
+                <tr><td>เครื่องจักร (Machine)</td><td>${machineLabel}</td></tr>
+                <tr><td>ราคาเครื่องจักร (Price)</td><td>${currencyTHB(machine.sellingPrice)}</td></tr>
+                <tr><td>เงินดาวน์ (Down Payment)</td><td>${currencyTHB(result.downPayment)} (${downPaymentPercent}%)</td></tr>
+                <tr><td>วงเงินจัดไฟแนนซ์ (Finance Amount)</td><td>${currencyTHB(result.financeAmount)}</td></tr>
+                <tr><td>ระยะเวลาผ่อน (Term)</td><td>${months} เดือน</td></tr>
+                <tr><td>อัตราดอกเบี้ย (Interest Rate)</td><td>${interestRate} % ต่อปี</td></tr>
+                <tr><td>ดอกเบี้ยรวม (Total Interest)</td><td>${currencyTHB(result.totalInterest)}</td></tr>
+                <tr class="qp-total-row"><td>ค่างวดผ่อนต่อเดือน (Monthly Installment)</td><td>${currencyTHB(result.monthlyInstallment)} / เดือน</td></tr>
+                <tr class="qp-total-row"><td>ยอดชำระรวมทั้งสัญญา (Total Payment)</td><td>${currencyTHB(result.totalPayment)}</td></tr>
+            </table>
+            <div class="qp-footer">ใบเสนอราคานี้เป็นการประเมินเบื้องต้นเพื่อการนำเสนอ ราคาสุดท้ายและเงื่อนไขไฟแนนซ์จริงขึ้นอยู่กับการอนุมัติสินเชื่อ</div>
+        `;
+        document.getElementById('quotationPrintArea').innerHTML = html;
+    }
+
+    function printQuotation() {
+        document.body.classList.add('printing-quotation');
+        window.print();
+        setTimeout(function () {
+            document.body.classList.remove('printing-quotation');
+        }, 500);
+    }
+
     function formatNumber(num) {
         if (isNaN(num)) return "0.00";
         return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -1089,33 +1557,19 @@
     }
 
     function switchTab(tabIndex) {
-        document.getElementById('page1').classList.remove('active-page');
-        document.getElementById('page2').classList.remove('active-page');
-        document.getElementById('page3').classList.remove('active-page');
-        document.getElementById('page4').classList.remove('active-page');
-        
-        document.getElementById('btnTab1').classList.remove('active');
-        document.getElementById('btnTab2').classList.remove('active');
-        document.getElementById('btnTab3').classList.remove('active');
-        document.getElementById('btnTab4').classList.remove('active');
-        document.getElementById('btnTab5').classList.remove('active');
+        for (let i = 1; i <= 6; i++) {
+            document.getElementById('page' + i).classList.remove('active-page');
+            document.getElementById('btnTab' + i).classList.remove('active');
+        }
 
-        if (tabIndex === 1) {
-            document.getElementById('page1').classList.add('active-page');
-            document.getElementById('btnTab1').classList.add('active');
-        } else if (tabIndex === 2) {
-            document.getElementById('page2').classList.add('active-page');
-            document.getElementById('btnTab2').classList.add('active');
-        } else if (tabIndex === 3) {
-            document.getElementById('page3').classList.add('active-page');
-            document.getElementById('btnTab3').classList.add('active');
-        } else if (tabIndex === 4) {
-            document.getElementById('page4').classList.add('active-page');
-            document.getElementById('btnTab4').classList.add('active');
-            compareSpecs();
+        document.getElementById('page' + tabIndex).classList.add('active-page');
+        document.getElementById('btnTab' + tabIndex).classList.add('active');
+
+        if (tabIndex === 4) {
+            calculateFinance();
         } else if (tabIndex === 5) {
-            document.getElementById('page5').classList.add('active-page');
-            document.getElementById('btnTab5').classList.add('active');
+            compareSpecs();
+        } else if (tabIndex === 6) {
             buildConverter();
         }
     }
@@ -1631,9 +2085,13 @@
     window.onload = function() {
         setDefaultDate();
         calculateTCO();
+        populateFinanceMachineSelect();
         buildConverter();
     };
 </script>
+
+<!-- Hidden standalone print sheet used only by printQuotation() -->
+<div id="quotationPrintArea" class="quotation-print-only"></div>
 
 </body>
 </html>
