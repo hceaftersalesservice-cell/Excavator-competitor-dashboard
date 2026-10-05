@@ -8,46 +8,58 @@
     <style>
         :root {
             --cat-yellow: #FFCD00;
-            --cat-black: #111111;
+            --cat-yellow-deep: #E6B800;
+            --cat-black: #111827;
+            --slate-800: #1F2937;
+            --slate-900: #0B0F17;
             --bg-gray: #F4F6F9;
             --card-bg: #FFFFFF;
-            --text-dark: #2C3E50;
-            --text-muted: #7F8C8D;
-            --border-color: #E2E8F0;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --border-color: #E5E9F0;
             --success-color: #10B981;
             --danger-color: #EF4444;
+            --radius-lg: 14px;
+            --radius-md: 10px;
+            --radius-sm: 7px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        html { -webkit-text-size-adjust: 100%; }
+
         body {
             font-family: 'Sarabun', sans-serif;
-            background-color: var(--bg-gray);
+            background: radial-gradient(circle at 15% 0%, #FDF8E5 0%, var(--bg-gray) 45%);
             color: var(--text-dark);
             padding: 20px;
+            padding-top: calc(20px + env(safe-area-inset-top, 0px));
+            padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
             display: flex;
             justify-content: center;
+            -webkit-font-smoothing: antialiased;
         }
 
         .dashboard-card {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1140px;
             background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 45px -12px rgba(17,24,39,0.18), 0 2px 8px rgba(17,24,39,0.06);
             overflow: hidden;
             border: 1px solid var(--border-color);
         }
 
         /* Header Bar */
         .header {
-            background: linear-gradient(135deg, var(--cat-black) 0%, #2a2a2a 100%);
+            background: linear-gradient(150deg, var(--slate-900) 0%, var(--cat-black) 55%, var(--slate-800) 100%);
             color: #ffffff;
-            padding: 20px 30px;
+            padding: 22px 32px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 16px;
             border-bottom: 5px solid var(--cat-yellow);
+            position: relative;
         }
 
         .header-top {
@@ -58,8 +70,9 @@
 
         .header h1 {
             font-family: 'Kanit', sans-serif;
-            font-size: 22px;
+            font-size: 21px;
             font-weight: 600;
+            letter-spacing: 0.2px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -114,7 +127,7 @@
 
         /* Nav Bar & Controls */
         .control-panel {
-            background-color: #1E293B;
+            background-color: var(--slate-800);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -127,6 +140,7 @@
         .nav-bar {
             display: flex;
             gap: 2px;
+            flex-wrap: wrap;
         }
 
         .nav-item {
@@ -134,18 +148,18 @@
             font-size: 14px;
             font-weight: 500;
             color: #94A3B8;
-            padding: 12px 18px;
+            padding: 13px 18px;
             cursor: pointer;
             border-bottom: 3px solid transparent;
-            transition: all 0.2s ease;
+            transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
         }
 
-        .nav-item:hover { color: #FFFFFF; }
+        .nav-item:hover { color: #FFFFFF; background-color: rgba(255,255,255,0.04); }
 
         .nav-item.active {
             color: var(--cat-yellow);
             border-bottom-color: var(--cat-yellow);
-            background-color: rgba(255, 205, 0, 0.08);
+            background-color: rgba(255, 205, 0, 0.1);
             font-weight: 600;
         }
 
@@ -155,56 +169,6 @@
             gap: 15px;
             padding: 6px 0;
         }
-
-        /* Toggle Conservative Mode Switch */
-        .toggle-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid #334155;
-        }
-
-        .toggle-label {
-            color: #E2E8F0;
-            font-size: 12px;
-            font-family: 'Kanit', sans-serif;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 36px;
-            height: 20px;
-        }
-
-        .switch input { opacity: 0; width: 0; height: 0; }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #475569;
-            transition: .3s;
-            border-radius: 20px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 14px;
-            width: 14px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .3s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider { background-color: var(--cat-yellow); }
-        input:checked + .slider:before { transform: translateX(16px); background-color: var(--cat-black); }
 
         .scenario-panel {
             display: flex;
@@ -216,15 +180,17 @@
             background: #334155;
             color: #E2E8F0;
             border: 1px solid #475569;
-            padding: 4px 10px;
+            padding: 6px 12px;
             font-size: 12px;
-            border-radius: 4px;
+            border-radius: 20px;
             cursor: pointer;
             font-family: 'Sarabun', sans-serif;
-            transition: 0.2s;
+            transition: 0.15s ease;
         }
 
-        .btn-scenario:hover, .btn-scenario.active {
+        .btn-scenario:hover { background: #475569; }
+
+        .btn-scenario.active {
             background: var(--cat-yellow);
             color: var(--cat-black);
             font-weight: 600;
@@ -235,16 +201,23 @@
             background-color: #2563EB;
             color: #FFFFFF;
             border: none;
-            padding: 6px 14px;
+            padding: 9px 18px;
             font-family: 'Kanit', sans-serif;
             font-size: 13px;
-            border-radius: 6px;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
             cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
         }
 
-        .content-padding { padding: 25px 30px; }
+        .btn-export:hover { background-color: #1D4ED8; box-shadow: 0 6px 16px rgba(37,99,235,0.35); transform: translateY(-1px); }
+        .btn-export:active { transform: translateY(0); }
+
+        .content-padding { padding: 26px 32px; }
         .tab-page { display: none; }
-        .tab-page.active-page { display: block; }
+        .tab-page.active-page { display: block; animation: fadeInPage 0.25s ease; }
+
+        @keyframes fadeInPage { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Tables */
         .tco-table {
@@ -252,11 +225,14 @@
             border-collapse: separate;
             border-spacing: 0;
             margin-bottom: 25px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(17,24,39,0.06);
         }
 
         .tco-table th {
             font-family: 'Kanit', sans-serif;
-            padding: 12px 14px;
+            padding: 13px 14px;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
@@ -272,11 +248,13 @@
         }
 
         .tco-table td {
-            padding: 8px 14px;
+            padding: 9px 14px;
             font-size: 13.5px;
             border-bottom: 1px solid var(--border-color);
             vertical-align: middle;
         }
+
+        .tco-table tbody tr:hover { background-color: #FBFCFE; }
 
         .section-title {
             background-color: #F1F5F9;
@@ -289,12 +267,21 @@
 
         input[type="number"], input[type="text"] {
             width: 100%;
-            padding: 5px 8px;
+            padding: 7px 9px;
             border: 1px solid #CBD5E1;
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             font-family: 'Sarabun', sans-serif;
-            font-size: 13.5px;
+            font-size: 14px;
             background-color: #FAFAFA;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            min-height: 34px;
+        }
+
+        input[type="number"]:focus, input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--cat-yellow);
+            box-shadow: 0 0 0 3px rgba(255,205,0,0.25);
+            background-color: #FFFFFF;
         }
 
         input[type="number"] { max-width: 120px; text-align: right; }
@@ -327,16 +314,19 @@
         .card-kpi {
             background: #FFFFFF;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            box-shadow: 0 4px 10px -2px rgba(17,24,39,0.06);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
+
+        .card-kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -4px rgba(17,24,39,0.1); }
 
         .card-kpi.highlight { background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%); border-color: #A7F3D0; }
         .card-kpi.highlight-danger { background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border-color: #FCA5A5; }
 
-        .card-kpi .kpi-title { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-bottom: 6px; text-transform: uppercase; }
-        .card-kpi .kpi-value { font-family: 'Kanit', sans-serif; font-size: 24px; font-weight: 600; color: var(--text-dark); }
+        .card-kpi .kpi-title { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.3px; }
+        .card-kpi .kpi-value { font-family: 'Kanit', sans-serif; font-size: 25px; font-weight: 600; color: var(--text-dark); }
         .card-kpi.highlight .kpi-value { color: #047857; }
         .card-kpi .kpi-sub { font-size: 11.5px; color: #64748B; margin-top: 4px; }
 
@@ -354,18 +344,20 @@
         }
 
         .dashboard-footer {
-            background-color: #F8FAFC;
-            border-top: 1px solid var(--border-color);
-            padding: 14px 30px;
+            background-color: var(--slate-800);
+            border-top: 3px solid var(--cat-yellow);
+            padding: 15px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 12px;
-            color: var(--text-muted);
+            color: #94A3B8;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
-        .footer-credit { font-family: 'Kanit', sans-serif; font-weight: 500; color: var(--text-dark); }
-        .footer-credit span { color: #2563EB; font-weight: 600; }
+        .footer-credit { font-family: 'Kanit', sans-serif; font-weight: 500; color: #E2E8F0; }
+        .footer-credit span { color: var(--cat-yellow); font-weight: 600; }
 
 
         /* UNIT CONVERTER */
@@ -546,16 +538,17 @@
         /* ============ FINANCE CALCULATOR (Quotation & Installment) ============ */
         .finance-panel-card {
             border: 1px solid var(--border-color);
-            border-radius: 9px;
+            border-radius: var(--radius-md);
             overflow: hidden;
             margin-bottom: 18px;
             background: #FFFFFF;
+            box-shadow: 0 4px 10px -2px rgba(17,24,39,0.06);
         }
 
         .finance-panel-header {
-            background: #1E293B;
+            background: var(--slate-800);
             color: #FFFFFF;
-            padding: 11px 15px;
+            padding: 12px 16px;
             font-family: 'Kanit', sans-serif;
             font-size: 15px;
             font-weight: 500;
@@ -599,13 +592,14 @@
         .finance-field input[type="number"] {
             width: 100%;
             max-width: none !important;
-            padding: 9px 10px;
+            padding: 11px 12px;
             border: 1px solid #CBD5E1;
-            border-radius: 6px;
+            border-radius: var(--radius-sm);
             font-family: 'Sarabun', sans-serif;
-            font-size: 14px;
+            font-size: 15px;
             background-color: #FAFAFA;
             text-align: left;
+            min-height: 44px;
         }
 
         .finance-field input[readonly] {
@@ -615,6 +609,55 @@
             font-weight: 700;
             font-size: 16px;
             font-family: 'Kanit', sans-serif;
+        }
+
+        .finance-field input.editable-price {
+            background-color: #FFFFFF;
+            border: 1.5px solid var(--cat-yellow);
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Kanit', sans-serif;
+            cursor: text;
+        }
+
+        .finance-field .field-hint { font-size: 10.5px; color: #94A3B8; margin-top: 4px; display: block; }
+
+        /* Slider + number pairing for touch-friendly finance inputs */
+        .slider-field { display: flex; align-items: center; gap: 10px; }
+        .slider-field input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 4px;
+            background: #E2E8F0;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            min-height: unset;
+        }
+        .slider-field input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--cat-yellow);
+            border: 3px solid var(--cat-black);
+            cursor: pointer;
+        }
+        .slider-field input[type="range"]::-moz-range-thumb {
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--cat-yellow);
+            border: 3px solid var(--cat-black);
+            cursor: pointer;
+        }
+        .slider-field .slider-readout {
+            min-width: 58px;
+            text-align: right;
+            font-family: 'Kanit', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-dark);
         }
 
         .finance-kpi-strip {
@@ -653,30 +696,36 @@
             background: var(--cat-yellow);
             color: var(--cat-black);
             border: none;
-            padding: 10px 20px;
+            padding: 12px 22px;
             font-family: 'Kanit', sans-serif;
             font-size: 14px;
             font-weight: 600;
-            border-radius: 6px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             white-space: nowrap;
-            transition: 0.2s;
+            min-height: 44px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
         }
 
-        .btn-quote:hover { background: #E6B800; }
+        .btn-quote:hover { background: var(--cat-yellow-deep); box-shadow: 0 6px 16px rgba(255,205,0,0.4); transform: translateY(-1px); }
+        .btn-quote:active { transform: translateY(0); }
 
         .btn-print-quote {
-            background: #1E293B;
+            background: var(--slate-800);
             color: #FFFFFF;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 22px;
             font-family: 'Kanit', sans-serif;
             font-size: 14px;
             font-weight: 500;
-            border-radius: 6px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             white-space: nowrap;
+            min-height: 44px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
         }
+
+        .btn-print-quote:hover { background: var(--cat-black); box-shadow: 0 6px 16px rgba(17,24,39,0.35); transform: translateY(-1px); }
 
         .quotation-box {
             display: none;
@@ -777,15 +826,6 @@
         </nav>
         
         <div class="controls-right">
-            <!-- Conservative Mode Switch -->
-            <div class="toggle-wrapper">
-                <span class="toggle-label">Conservative Mode:</span>
-                <label class="switch">
-                    <input type="checkbox" id="conservativeToggle" onchange="calculateTCO()">
-                    <span class="slider"></span>
-                </label>
-            </div>
-
             <!-- Scenario Presets -->
             <div class="scenario-panel">
                 <button class="btn-scenario active" id="btnStd" onclick="applyPreset('standard')">งานทั่วไป (10 ชม.)</button>
@@ -797,10 +837,6 @@
 
     <!-- PAGE 1: TCO & PM COST ANALYSIS -->
     <div id="page1" class="content-padding tab-page active-page">
-        <div id="conservativeBanner" class="mode-banner">
-            ⚠️ <strong>เปิดใช้งาน Conservative Mode:</strong> ปรับลดผลต่างค่าน้ำมัน, Downtime และ Productivity ลง 50% และลดราคาขายต่อ CAT ลง 10% เพื่อให้การประเมินรอบคอบที่สุด
-        </div>
-
         <table class="tco-table">
             <thead>
                 <tr>
@@ -910,44 +946,43 @@
         </div>
     </div>
 
-    <!-- PAGE 2: NPV & FINANCIAL ANALYSIS -->
+    <!-- PAGE 2: SIMPLE PAYBACK & ROI (Sales Enablement) -->
     <div id="page2" class="content-padding tab-page">
+        <div class="mode-banner" style="display:block; background:#EFF6FF; border-color:#93C5FD; color:#1E40AF;">
+            💡 <strong>สรุปจุดคุ้มทุนอย่างง่ายสำหรับงานขาย:</strong> ตัวเลขด้านล่างอธิบายลูกค้าได้ง่าย ไม่มีสูตรการเงินเชิงลึก เหมาะสำหรับการนำเสนอหน้างาน
+        </div>
+
         <table class="tco-table">
             <thead>
                 <tr>
-                    <th style="width: 45%;" class="text-left">ดัชนีชี้วัดทางการเงินเชิงลึก (Financial & NPV Analysis)</th>
+                    <th style="width: 45%;" class="text-left">สรุปความคุ้มค่าการลงทุน (Simple Payback & ROI)</th>
                     <th style="width: 25%;" class="cat-th">ค่าที่คำนวณได้</th>
-                    <th style="width: 30%;">คำอธิบายสำหรับผู้บริหาร / CFO</th>
+                    <th style="width: 30%;">อธิบายลูกค้าแบบเข้าใจง่าย</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="fw-bold">อัตราคิดลดทางการเงิน / ต้นทุนเงินทุน (Discount Rate / WACC %)</td>
-                    <td class="text-center"><input type="number" id="discountRate" value="6.0" step="0.5" style="width:70px;" oninput="calculateTCO()"> %</td>
-                    <td class="remark-text">ใช้สำหรับคิดลดกระแสเงินสดตามเวลา (TVM)</td>
+                    <td class="fw-bold">เงินลงทุนเพิ่มเมื่อเลือก CAT (Extra Investment)</td>
+                    <td id="p2ExtraInvestment" class="text-center fw-bold">1,300,000.00 บาท</td>
+                    <td class="remark-text">ส่วนต่างราคาซื้อวันแรกระหว่าง CAT กับคู่แข่ง</td>
                 </tr>
                 <tr>
-                    <td>กระแสเงินสดประหยัดได้ต่อปี (Annual Cash Savings)</td>
+                    <td>ยอดประหยัดเฉลี่ยต่อปี (Annual Cash Savings)</td>
                     <td id="p2AnnualSavings" class="text-center fw-bold" style="color: #059669;">369,760.00 บาท/ปี</td>
                     <td class="remark-text">(ประหยัดน้ำมัน + PM Cost + Downtime) / ปี</td>
                 </tr>
                 <tr class="output-row">
-                    <td class="fw-bold" style="color: #1D4ED8;">มูลค่าปัจจุบันสุทธิจากการประหยัด (NPV of Cash Savings)</td>
-                    <td id="npvSavings" class="text-center fw-bold" style="font-size: 15px; color: #1D4ED8;">1,557,560.00 บาท</td>
-                    <td class="remark-text">คิดลดกระแสเงินสดประหยัดได้รวมมูลค่าซากปีสุดท้าย</td>
-                </tr>
-                <tr class="output-row">
-                    <td class="fw-bold" style="color: #047857;">NPV สุทธิหลังหักส่วนต่างราคาซื้อ (NET NPV BENEFIT)</td>
-                    <td id="netNPVBenefit" class="text-center fw-bold" style="font-size: 16px; color: #047857;">+ 257,560.00 บาท</td>
-                    <td class="remark-text">หาก NPV > 0 ถือเป็นการลงทุนที่คุ้มค่าทางบัญชี</td>
-                </tr>
-                <tr>
-                    <td>ระยะเวลาคืนทุนส่วนต่าง (Payback Period)</td>
-                    <td id="p2PaybackPeriod" class="text-center fw-bold">3 ปี 6 เดือน</td>
+                    <td class="fw-bold" style="color: #1D4ED8;">ระยะเวลาคืนทุน (Simple Payback Period)</td>
+                    <td id="p2PaybackPeriod" class="text-center fw-bold" style="font-size: 16px; color: #1D4ED8;">3 ปี 6 เดือน</td>
                     <td class="remark-text">ระยะเวลาที่เงินประหยัดคืนทุนส่วนต่างราคาซื้อ</td>
                 </tr>
+                <tr class="output-row">
+                    <td class="fw-bold" style="color: #047857;">ผลตอบแทนการลงทุนตลอดอายุถือครอง (Return on Investment)</td>
+                    <td id="p2ROI" class="text-center fw-bold" style="font-size: 16px; color: #047857;">+ 154.5 %</td>
+                    <td class="remark-text">กำไรสุทธิตลอดอายุถือครอง ÷ เงินลงทุนเพิ่ม × 100</td>
+                </tr>
                 <tr>
-                    <td colspan="3" class="section-title">วิเคราะห์กระแสเงินสดการผ่อนชำระลิสซิ่ง (Financing Impact)</td>
+                    <td colspan="3" class="section-title">ผลกระทบต่อค่างวดผ่อนรายเดือน (Monthly Financing Impact)</td>
                 </tr>
                 <tr>
                     <td>ระยะเวลาผ่อน (เดือน) / ดอกเบี้ย (%)</td>
@@ -977,20 +1012,79 @@
 
         <div class="summary-container">
             <div class="card-kpi highlight">
-                <div class="kpi-title">มูลค่าปัจจุบันสุทธิ (NET NPV BENEFIT)</div>
-                <div id="npvCard" class="kpi-value" style="color: #047857;">+ 257,560.00 บาท</div>
-                <div class="kpi-sub">ผ่านเกณฑ์การลงทุนของ CFO (Discount Rate 6%)</div>
+                <div class="kpi-title">ระยะเวลาคืนทุน (Payback Period)</div>
+                <div id="paybackCard" class="kpi-value" style="color: #047857;">3 ปี 6 เดือน</div>
+                <div class="kpi-sub">คืนทุนส่วนต่างราคาซื้อได้ในระยะเวลาถือครอง</div>
             </div>
-            <div class="card-kpi">
-                <div class="kpi-title">ระยะเวลาคืนทุนส่วนต่าง (Payback)</div>
-                <div id="paybackCard" class="kpi-value" style="color: #2563EB;">3 ปี 6 เดือน</div>
-                <div class="kpi-sub">คืนทุนส่วนต่างได้อย่างรวดเร็วในระยะถือครอง</div>
+            <div class="card-kpi highlight">
+                <div class="kpi-title">ผลตอบแทนการลงทุน (ROI %)</div>
+                <div id="roiCard" class="kpi-value" style="color: #047857;">+ 154.5 %</div>
+                <div class="kpi-sub">ผลตอบแทนสุทธิตลอดอายุการถือครอง</div>
             </div>
         </div>
     </div>
 
     <!-- PAGE 3: FLEET & PRODUCTIVITY -->
     <div id="page3" class="content-padding tab-page">
+
+        <div class="finance-panel-card">
+            <div class="finance-panel-header">
+                <span>🚜 ประเภทเครื่องจักร & คำนวณอัตราการทำงานจาก Bucket/Cycle</span>
+                <div class="scenario-panel">
+                    <button class="btn-scenario active" id="btnEquipExcavator" onclick="setFleetEquipmentType('excavator')">รถขุด (Excavator)</button>
+                    <button class="btn-scenario" id="btnEquipWheelLoader" onclick="setFleetEquipmentType('wheelloader')">รถตักล้อยาง (Wheel Loader)</button>
+                </div>
+            </div>
+            <div class="finance-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="finance-field">
+                    <label id="lblBucketVol">ปริมาณตักต่อรอบ (Bucket Volume, m³/cycle)</label>
+                    <div style="display:flex; gap:6px;">
+                        <input type="number" id="bucketVolComp" value="0.90" step="0.05" placeholder="Comp" oninput="calcBucketCycle()">
+                        <input type="number" id="bucketVolCat" value="1.00" step="0.05" placeholder="CAT" oninput="calcBucketCycle()">
+                    </div>
+                </div>
+                <div class="finance-field">
+                    <label>Fill Factor (%)</label>
+                    <div style="display:flex; gap:6px;">
+                        <input type="number" id="fillFactorComp" value="90" step="1" placeholder="Comp" oninput="calcBucketCycle()">
+                        <input type="number" id="fillFactorCat" value="95" step="1" placeholder="CAT" oninput="calcBucketCycle()">
+                    </div>
+                </div>
+                <div class="finance-field">
+                    <label id="lblCycleTime">เวลาต่อรอบ (Cycle Time, วินาที)</label>
+                    <div style="display:flex; gap:6px;">
+                        <input type="number" id="cycleTimeComp" value="16" step="0.5" placeholder="Comp" oninput="calcBucketCycle()">
+                        <input type="number" id="cycleTimeCat" value="14" step="0.5" placeholder="CAT" oninput="calcBucketCycle()">
+                    </div>
+                </div>
+                <div class="finance-field">
+                    <label>ความหนาแน่นวัสดุ (Density, ton/m³)</label>
+                    <input type="number" id="materialDensity" value="1.60" step="0.05" oninput="calcBucketCycle()">
+                </div>
+            </div>
+            <div class="finance-kpi-strip">
+                <div class="finance-kpi">
+                    <div class="kpi-title">Cycles / Hour — Competitor</div>
+                    <div id="cyclesPerHourComp" class="kpi-value">0</div>
+                </div>
+                <div class="finance-kpi">
+                    <div class="kpi-title">Cycles / Hour — CAT</div>
+                    <div id="cyclesPerHourCat" class="kpi-value">0</div>
+                </div>
+                <div class="finance-kpi">
+                    <div class="kpi-title">m³ / Hour — Competitor</div>
+                    <div id="volPerHourComp" class="kpi-value">0</div>
+                </div>
+                <div class="finance-kpi emphasis">
+                    <div class="kpi-title">m³ / Hour — CAT</div>
+                    <div id="volPerHourCat" class="kpi-value">0</div>
+                </div>
+            </div>
+            <div class="converter-note" style="margin:0 18px 18px;">
+                💡 ระบบจะคำนวณ <strong>ตัน/ชั่วโมง</strong> จาก Bucket Volume × Fill Factor × (3,600 ÷ Cycle Time) × Density แล้วใส่ค่าให้อัตโนมัติในตารางด้านล่าง — สามารถแก้ไขตัวเลขตารางด้านล่างเองได้อีกครั้งหากต้องการปรับละเอียด
+            </div>
+        </div>
+
         <table class="tco-table">
             <thead>
                 <tr>
@@ -1002,10 +1096,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>อัตราการตัก/ขุดงาน (ตัน/ชั่วโมง)</td>
+                    <td id="lblProdRate">อัตราการตัก/ขุดงาน (ตัน/ชั่วโมง)</td>
                     <td class="text-center"><input type="number" id="prodComp" value="180" step="5" oninput="calculateTCO()"></td>
                     <td class="text-center"><input type="number" id="prodCat" value="210" step="5" oninput="calculateTCO()"></td>
-                    <td class="remark-text">กำลังขุดไฮดรอลิกสมบูรณ์แบบ</td>
+                    <td class="remark-text">คำนวณอัตโนมัติจาก Bucket/Cycle ด้านบน หรือแก้ไขเองได้</td>
                 </tr>
                 <tr>
                     <td>ปริมาณงานรวมต่อปี (ตัน/ปี)</td>
@@ -1059,15 +1153,22 @@
             <div class="finance-grid wide-3">
                 <div class="finance-field">
                     <label>รุ่นเครื่องจักร (Machine Model)</label>
-                    <select id="financeMachineSelect" onchange="onFinanceMachineChange()"></select>
+                    <input type="text" id="financeMachineModelInput" list="financeMachineList"
+                           placeholder="เลือกจากรายการ หรือพิมพ์รุ่นเอง..." oninput="onFinanceMachineChange()">
+                    <datalist id="financeMachineList"></datalist>
+                    <span class="field-hint">พิมพ์ชื่อรุ่นเองได้ หรือเลือกจากรายการที่มีข้อมูลราคา/น้ำมันอัตโนมัติ</span>
                 </div>
                 <div class="finance-field">
                     <label>ราคาเครื่องจักร (Selling Price)</label>
-                    <input type="text" id="financeSellingPriceDisplay" readonly value="฿ 0">
+                    <input type="number" id="financeSellingPrice" class="editable-price" step="10000"
+                           value="0" oninput="onFinancePriceOrFuelEdited()">
+                    <span class="field-hint">แก้ไขราคาได้โดยตรง ระบบจะคำนวณค่างวด/เงินดาวน์ให้ทันที</span>
                 </div>
                 <div class="finance-field">
-                    <label>อัตราสิ้นเปลืองน้ำมัน (Fuel Consumption)</label>
-                    <input type="text" id="financeFuelDisplay" readonly value="- ลิตร/ชม.">
+                    <label>อัตราสิ้นเปลืองน้ำมัน (Fuel Consumption, ลิตร/ชม.)</label>
+                    <input type="number" id="financeFuelConsumption" class="editable-price" step="0.1"
+                           value="0" oninput="onFinancePriceOrFuelEdited()">
+                    <span class="field-hint">แก้ไขอัตราสิ้นเปลืองน้ำมันได้โดยตรงตามข้อมูลจริงหน้างาน</span>
                 </div>
             </div>
         </div>
@@ -1101,7 +1202,12 @@
                 </div>
                 <div class="finance-field">
                     <label>อัตราดอกเบี้ย (Interest Rate % ต่อปี)</label>
-                    <input type="number" id="financeInterestRate" step="0.01" oninput="calculateFinance()">
+                    <div class="slider-field">
+                        <input type="range" id="financeInterestRateSlider" min="0" max="12" step="0.05"
+                               value="4.25" oninput="onInterestSliderChange()">
+                        <input type="number" id="financeInterestRate" step="0.01" style="max-width:70px; min-height:36px;"
+                               value="4.25" oninput="onInterestNumberChange()">
+                    </div>
                 </div>
             </div>
 
@@ -1191,6 +1297,26 @@
                     <td class="text-center"><input type="number" id="specBucketComp" value="0.90" step="0.05" oninput="compareSpecs()"> m³</td>
                     <td class="text-center"><input type="number" id="specBucketCat" value="1.00" step="0.05" oninput="compareSpecs()"> m³</td>
                     <td class="remark-text" id="impactBucket">CAT ตักได้ปริมาณงานต่อตักมากกว่า ลดจำนวนรอบการตัก</td>
+                </tr>
+
+                <tr><td colspan="4" class="section-title">แรงตัก & การเข้าถึงงาน (เหมาะสำหรับรถตักล้อยาง Wheel Loader)</td></tr>
+                <tr>
+                    <td class="fw-bold">แรงงัดบุ้งกี๋ (Bucket Breakout Force)</td>
+                    <td class="text-center"><input type="number" id="specBreakoutComp" value="145" step="1" oninput="compareSpecs()"> kN</td>
+                    <td class="text-center"><input type="number" id="specBreakoutCat" value="162" step="1" oninput="compareSpecs()"> kN</td>
+                    <td class="remark-text" id="impactBreakout">CAT มีแรงงัดบุ้งกี๋สูงกว่า ตักวัสดุแน่น/หนักได้ดีกว่า</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">ระยะยกเทสูงสุด (Dump Clearance / Reach)</td>
+                    <td class="text-center"><input type="number" id="specDumpComp" value="2750" step="10" oninput="compareSpecs()"> mm</td>
+                    <td class="text-center"><input type="number" id="specDumpCat" value="2900" step="10" oninput="compareSpecs()"> mm</td>
+                    <td class="remark-text" id="impactDump">CAT ยกเทได้สูงกว่า เทลงกระบะรถบรรทุกคันใหญ่ได้สะดวกกว่า</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">รัศมีวงเลี้ยว (Turning Radius)</td>
+                    <td class="text-center"><input type="number" id="specTurnComp" value="6.30" step="0.05" oninput="compareSpecs()"> m</td>
+                    <td class="text-center"><input type="number" id="specTurnCat" value="5.95" step="0.05" oninput="compareSpecs()"> m</td>
+                    <td class="remark-text" id="impactTurn">CAT วงเลี้ยวแคบกว่า คล่องตัวกว่าในพื้นที่ทำงานจำกัด</td>
                 </tr>
 
                 <tr><td colspan="4" class="section-title">ถังน้ำมัน & ระบบไฮดรอลิก (Capacity & Systems)</td></tr>
@@ -1312,8 +1438,8 @@
 
     <!-- Footer -->
     <div class="dashboard-footer">
-        <div>CATERPILLAR Competitive Intelligence & Financial Report</div>
-        <div class="footer-credit">Prepared by <span id="footerSalesName">Thirawit (Product Specialist)</span></div>
+        <div>© <span id="footerYear"></span> บริษัท เมโทรแคต จำกัด (Metro Cat Co., Ltd.)</div>
+        <div class="footer-credit">จัดทำโดย <span id="footerSalesName">Thirawit (Product Specialist)</span></div>
     </div>
 </div>
 
@@ -1412,18 +1538,36 @@
         return "฿ " + Math.round(num || 0).toLocaleString('en-US');
     }
 
+    // Find a machine in the database whose "Brand Model — Type" label matches
+    // the free-typed text (case-insensitive). Returns null when the sales rep
+    // typed a custom model name that isn't in the database.
+    function findMachineByLabel(text) {
+        if (!text) return null;
+        const needle = text.trim().toLowerCase();
+        let found = null;
+        Object.keys(MACHINE_DATABASE).forEach(function (key) {
+            const m = MACHINE_DATABASE[key];
+            const label = (m.brand + ' ' + m.model + ' — ' + m.machineType).toLowerCase();
+            if (label === needle || m.model.toLowerCase() === needle) found = m;
+        });
+        return found;
+    }
+
     function populateFinanceMachineSelect() {
-        const select = document.getElementById('financeMachineSelect');
-        if (!select) return;
-        select.innerHTML = '';
+        const list = document.getElementById('financeMachineList');
+        const input = document.getElementById('financeMachineModelInput');
+        if (!list || !input) return;
+        list.innerHTML = '';
         Object.keys(MACHINE_DATABASE).forEach(function (key) {
             const m = MACHINE_DATABASE[key];
             const opt = document.createElement('option');
-            opt.value = key;
-            opt.textContent = m.brand + ' ' + m.model + ' — ' + m.machineType;
-            select.appendChild(opt);
+            opt.value = m.brand + ' ' + m.model + ' — ' + m.machineType;
+            list.appendChild(opt);
         });
-        select.value = "950GC";
+
+        // Default to a representative machine, but the field stays fully editable/typeable.
+        const defaultMachine = MACHINE_DATABASE['950GC'];
+        input.value = defaultMachine.brand + ' ' + defaultMachine.model + ' — ' + defaultMachine.machineType;
 
         const customerInput = document.getElementById('financeCustomerName');
         if (customerInput && !customerInput.value) {
@@ -1434,18 +1578,22 @@
     }
 
     function onFinanceMachineChange() {
-        const key = document.getElementById('financeMachineSelect').value;
-        const machine = MACHINE_DATABASE[key];
-        if (!machine) return;
+        const typedLabel = document.getElementById('financeMachineModelInput').value;
+        const machine = findMachineByLabel(typedLabel);
 
-        document.getElementById('financeMachineTypeBadge').innerText = machine.machineType;
-        document.getElementById('financeSellingPriceDisplay').value = currencyTHB(machine.sellingPrice);
-        document.getElementById('financeFuelDisplay').value =
-            (machine.operation ? machine.operation.fuelConsumption : '-') + ' ลิตร/ชม.';
-
-        document.getElementById('financeDownPaymentPercent').value = String(machine.finance.downPaymentPercent);
-        document.getElementById('financeTermMonths').value = String(machine.finance.defaultTerm);
-        document.getElementById('financeInterestRate').value = machine.finance.interestRate;
+        if (machine) {
+            // Known model — auto-fill price, fuel rate, and finance defaults from the database.
+            document.getElementById('financeMachineTypeBadge').innerText = machine.machineType;
+            document.getElementById('financeSellingPrice').value = machine.sellingPrice;
+            document.getElementById('financeFuelConsumption').value = machine.operation ? machine.operation.fuelConsumption : 0;
+            document.getElementById('financeDownPaymentPercent').value = String(machine.finance.downPaymentPercent);
+            document.getElementById('financeTermMonths').value = String(machine.finance.defaultTerm);
+            document.getElementById('financeInterestRate').value = machine.finance.interestRate;
+            document.getElementById('financeInterestRateSlider').value = machine.finance.interestRate;
+        } else if (typedLabel && typedLabel.trim() !== '') {
+            // Custom / unlisted model — let the rep type in their own price & fuel rate.
+            document.getElementById('financeMachineTypeBadge').innerText = 'Custom';
+        }
 
         // Hide any previously generated quotation when switching machine
         document.getElementById('quotationBox').classList.remove('visible');
@@ -1453,16 +1601,32 @@
         calculateFinance();
     }
 
-    function calculateFinance() {
-        const key = document.getElementById('financeMachineSelect').value;
-        const machine = MACHINE_DATABASE[key];
-        if (!machine) return;
+    // Called when the rep manually edits the unlocked Selling Price or Fuel
+    // Consumption fields — recalculates instantly without wiping their edits.
+    function onFinancePriceOrFuelEdited() {
+        document.getElementById('financeMachineTypeBadge').innerText =
+            (findMachineByLabel(document.getElementById('financeMachineModelInput').value) ? '' : 'Custom ') + 'ปรับแก้ราคาแล้ว';
+        calculateFinance();
+    }
 
+    function onInterestSliderChange() {
+        document.getElementById('financeInterestRate').value = document.getElementById('financeInterestRateSlider').value;
+        calculateFinance();
+    }
+
+    function onInterestNumberChange() {
+        const v = parseFloat(document.getElementById('financeInterestRate').value) || 0;
+        document.getElementById('financeInterestRateSlider').value = Math.min(12, Math.max(0, v));
+        calculateFinance();
+    }
+
+    function calculateFinance() {
+        const sellingPrice = parseFloat(document.getElementById('financeSellingPrice').value) || 0;
         const downPaymentPercent = parseFloat(document.getElementById('financeDownPaymentPercent').value) || 0;
         const months = parseInt(document.getElementById('financeTermMonths').value) || 0;
         const interestRate = parseFloat(document.getElementById('financeInterestRate').value) || 0;
 
-        const result = CALCULATION_ENGINE.computeQuote(machine.sellingPrice, downPaymentPercent, interestRate, months);
+        const result = CALCULATION_ENGINE.computeQuote(sellingPrice, downPaymentPercent, interestRate, months);
 
         document.getElementById('kpiDownPayment').innerText = currencyTHB(result.downPayment);
         document.getElementById('kpiFinanceAmount').innerText = currencyTHB(result.financeAmount);
@@ -1475,22 +1639,21 @@
        EXPORT_MODULE — Generate Quotation + Print/PDF
        ===================================================================== */
     function generateQuotation() {
-        const key = document.getElementById('financeMachineSelect').value;
-        const machine = MACHINE_DATABASE[key];
-        if (!machine) return;
-
+        const sellingPrice = parseFloat(document.getElementById('financeSellingPrice').value) || 0;
         const downPaymentPercent = parseFloat(document.getElementById('financeDownPaymentPercent').value) || 0;
         const months = parseInt(document.getElementById('financeTermMonths').value) || 0;
         const interestRate = parseFloat(document.getElementById('financeInterestRate').value) || 0;
-        const result = CALCULATION_ENGINE.computeQuote(machine.sellingPrice, downPaymentPercent, interestRate, months);
+        const result = CALCULATION_ENGINE.computeQuote(sellingPrice, downPaymentPercent, interestRate, months);
 
         const customerName = document.getElementById('financeCustomerName').value ||
             document.getElementById('clientName').value || '-';
-        const machineLabel = machine.brand + ' ' + machine.model + ' (' + machine.machineType + ')';
+        const typedLabel = document.getElementById('financeMachineModelInput').value || '-';
+        const machine = findMachineByLabel(typedLabel);
+        const machineLabel = machine ? (machine.brand + ' ' + machine.model + ' (' + machine.machineType + ')') : typedLabel;
 
         document.getElementById('qCustomer').innerText = customerName;
         document.getElementById('qMachine').innerText = machineLabel;
-        document.getElementById('qPrice').innerText = currencyTHB(machine.sellingPrice);
+        document.getElementById('qPrice').innerText = currencyTHB(sellingPrice);
         document.getElementById('qDownPayment').innerText = currencyTHB(result.downPayment) + ' (' + downPaymentPercent + '%)';
         document.getElementById('qFinanceAmount').innerText = currencyTHB(result.financeAmount);
         document.getElementById('qTerm').innerText = months + ' เดือน';
@@ -1501,7 +1664,7 @@
         document.getElementById('quotationBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
         // Build the hidden print-only sheet so it stays in sync with the on-screen summary
-        buildQuotationPrintSheet(customerName, machineLabel, machine, downPaymentPercent, months, interestRate, result);
+        buildQuotationPrintSheet(customerName, machineLabel, { sellingPrice: sellingPrice }, downPaymentPercent, months, interestRate, result);
     }
 
     function buildQuotationPrintSheet(customerName, machineLabel, machine, downPaymentPercent, months, interestRate, result) {
@@ -1512,7 +1675,7 @@
             <div class="qp-header">
                 <div>
                     <h1>🚜 ใบเสนอราคาเครื่องจักร CATERPILLAR</h1>
-                    <div style="font-size:12px;color:#64748B;margin-top:4px;">Metro Machinery Group — Sales Enablement Platform</div>
+                    <div style="font-size:12px;color:#64748B;margin-top:4px;">บริษัท เมโทรแคต จำกัด (Metro Cat Co., Ltd.)</div>
                 </div>
                 <div style="text-align:right;font-size:12px;color:#64748B;">
                     วันที่: ${reportDate}<br>ผู้จัดทำ: ${salesName}
@@ -1603,9 +1766,7 @@
 
     function calculateTCO() {
         document.getElementById('footerSalesName').innerText = document.getElementById('salesName').value || 'Product Specialist';
-
-        const isConservative = document.getElementById('conservativeToggle').checked;
-        document.getElementById('conservativeBanner').style.display = isConservative ? 'block' : 'none';
+        document.getElementById('footerYear').innerText = new Date().getFullYear();
 
         // 1. ชั่วโมงทำงาน
         const hoursPerDayComp = parseFloat(document.getElementById('hoursPerDayComp').value) || 0;
@@ -1630,12 +1791,8 @@
         const downtimeCostComp = parseFloat(document.getElementById('downtimeCostComp').value) || 0;
         const downtimeCostCat = parseFloat(document.getElementById('downtimeCostCat').value) || 0;
 
-        let resalePercentComp = (parseFloat(document.getElementById('resalePercentComp').value) || 0) / 100;
-        let resalePercentCat = (parseFloat(document.getElementById('resalePercentCat').value) || 0) / 100;
-
-        if (isConservative) {
-            resalePercentCat = resalePercentCat * 0.90;
-        }
+        const resalePercentComp = (parseFloat(document.getElementById('resalePercentComp').value) || 0) / 100;
+        const resalePercentCat = (parseFloat(document.getElementById('resalePercentCat').value) || 0) / 100;
 
         // 3. คำนวณ TCO
         const totalFuelComp = hoursPerYearComp * fuelRateComp * fuelPrice * yearsCat;
@@ -1646,15 +1803,9 @@
         const diffPriceVal = priceCat - priceComp;
         document.getElementById('diffPrice').innerText = formatNumber(diffPriceVal);
 
-        let diffFuelVal = totalFuelComp - totalFuelCat;
-        let diffPMVal = pmCostComp - pmCostCat;
-        let diffDowntimeVal = (downtimeDaysComp * downtimeCostComp * yearsCat) - (downtimeDaysCat * downtimeCostCat * yearsCat);
-
-        if (isConservative) {
-            diffFuelVal = diffFuelVal * 0.50;
-            diffPMVal = diffPMVal * 0.50;
-            diffDowntimeVal = diffDowntimeVal * 0.50;
-        }
+        const diffFuelVal = totalFuelComp - totalFuelCat;
+        const diffPMVal = pmCostComp - pmCostCat;
+        const diffDowntimeVal = (downtimeDaysComp * downtimeCostComp * yearsCat) - (downtimeDaysCat * downtimeCostCat * yearsCat);
 
         const diffFuelAndPMVal = diffFuelVal + diffPMVal;
         document.getElementById('diffFuelAndPM').innerText = formatNumber(diffFuelAndPMVal);
@@ -1682,26 +1833,24 @@
             netBenefitSub.innerText = "การเลือก CAT สร้างผลตอบแทนสุทธิคุ้มค่ากว่าชัดเจน";
         }
 
-        // 4. คำนวณ NPV & Payback (Page 2)
+        // 4. คำนวณ Simple Payback & ROI (Page 2 - Sales Enablement)
         const annualSavingsVal = (diffFuelAndPMVal / (yearsCat || 1)) + (diffDowntimeVal / (yearsCat || 1));
         document.getElementById('p2AnnualSavings').innerText = formatNumber(annualSavingsVal) + " บาท/ปี";
+        document.getElementById('p2ExtraInvestment').innerText = formatNumber(diffPriceVal) + " บาท";
 
-        const discountRate = (parseFloat(document.getElementById('discountRate').value) || 0) / 100;
-        let npvSavingsVal = 0;
-        for (let t = 1; t <= yearsCat; t++) {
-            let cashFlow = annualSavingsVal;
-            if (t === yearsCat) {
-                cashFlow += diffResaleVal;
-            }
-            npvSavingsVal += cashFlow / Math.pow(1 + discountRate, t);
+        // ROI % = กำไรสุทธิตลอดอายุถือครอง (จาก Page 1) ÷ เงินลงทุนเพิ่ม × 100
+        const roiEl = document.getElementById('p2ROI');
+        const roiCardEl = document.getElementById('roiCard');
+        if (diffPriceVal > 0) {
+            const roiPercent = (netBenefitVal / diffPriceVal) * 100;
+            const roiStr = (roiPercent >= 0 ? "+ " : "") + formatNumber(roiPercent) + " %";
+            roiEl.innerText = roiStr;
+            roiCardEl.innerText = roiStr;
+            roiEl.style.color = roiPercent >= 0 ? "#047857" : "#DC2626";
+        } else {
+            roiEl.innerText = "ลงทุนน้อยกว่าคู่แข่ง";
+            roiCardEl.innerText = "คุ้มค่าทันที";
         }
-
-        document.getElementById('npvSavings').innerText = formatNumber(npvSavingsVal) + " บาท";
-        const netNPVBenefitVal = npvSavingsVal - diffPriceVal;
-        const netNPVEl = document.getElementById('netNPVBenefit');
-        netNPVEl.innerText = (netNPVBenefitVal >= 0 ? "+ " : "") + formatNumber(netNPVBenefitVal) + " บาท";
-        netNPVEl.style.color = netNPVBenefitVal >= 0 ? "#047857" : "#DC2626";
-        document.getElementById('npvCard').innerText = (netNPVBenefitVal >= 0 ? "+ " : "") + formatNumber(netNPVBenefitVal) + " บาท";
 
         let paybackStr = "N/A";
         if (annualSavingsVal > 0 && diffPriceVal > 0) {
@@ -1731,16 +1880,10 @@
 
         // 5. Productivity (Page 3)
         const prodComp = parseFloat(document.getElementById('prodComp').value) || 0;
-        let prodCat = parseFloat(document.getElementById('prodCat').value) || 0;
+        const prodCat = parseFloat(document.getElementById('prodCat').value) || 0;
 
         const annualProdCompVal = hoursPerYearComp * prodComp;
-        let annualProdCatVal = hoursPerYearCat * prodCat;
-
-        if (isConservative) {
-            const diffProdRate = (prodCat - prodComp) * 0.50;
-            prodCat = prodComp + diffProdRate;
-            annualProdCatVal = hoursPerYearCat * prodCat;
-        }
+        const annualProdCatVal = hoursPerYearCat * prodCat;
 
         document.getElementById('annualProdComp').innerText = formatNumber(annualProdCompVal) + " ตัน";
         document.getElementById('annualProdCat').innerText = formatNumber(annualProdCatVal) + " ตัน";
@@ -2080,12 +2223,71 @@
         const tankComp = parseFloat(document.getElementById('specTankComp').value) || 0;
         const tankCat = parseFloat(document.getElementById('specTankCat').value) || 0;
         document.getElementById('specTankCat').parentElement.className = tankCat > tankComp ? 'text-center highlight-win' : 'text-center';
+
+        // Wheel Loader specs — higher is better for breakout force & dump clearance
+        const breakoutComp = parseFloat(document.getElementById('specBreakoutComp').value) || 0;
+        const breakoutCat = parseFloat(document.getElementById('specBreakoutCat').value) || 0;
+        document.getElementById('specBreakoutCat').parentElement.className = breakoutCat > breakoutComp ? 'text-center highlight-win' : 'text-center';
+
+        const dumpComp = parseFloat(document.getElementById('specDumpComp').value) || 0;
+        const dumpCat = parseFloat(document.getElementById('specDumpCat').value) || 0;
+        document.getElementById('specDumpCat').parentElement.className = dumpCat > dumpComp ? 'text-center highlight-win' : 'text-center';
+
+        // Turning Radius — lower (tighter turn) is better, so the comparison is reversed
+        const turnComp = parseFloat(document.getElementById('specTurnComp').value) || 0;
+        const turnCat = parseFloat(document.getElementById('specTurnCat').value) || 0;
+        document.getElementById('specTurnCat').parentElement.className = (turnCat > 0 && turnCat < turnComp) ? 'text-center highlight-win' : 'text-center';
+    }
+
+    /* =====================================================================
+       FLEET PRODUCTIVITY — Excavator / Wheel Loader toggle + Bucket-Cycle calc
+       ===================================================================== */
+    let fleetEquipmentType = 'excavator';
+
+    function setFleetEquipmentType(type) {
+        fleetEquipmentType = type;
+        document.getElementById('btnEquipExcavator').classList.toggle('active', type === 'excavator');
+        document.getElementById('btnEquipWheelLoader').classList.toggle('active', type === 'wheelloader');
+
+        if (type === 'wheelloader') {
+            document.getElementById('lblBucketVol').innerText = 'ปริมาณตักต่อรอบ (Bucket Volume, m³/cycle)';
+            document.getElementById('lblCycleTime').innerText = 'เวลาต่อรอบตัก-เท (Cycle Time, วินาที)';
+            document.getElementById('lblProdRate').innerText = 'อัตราการตักย้ายวัสดุ (ตัน/ชั่วโมง)';
+        } else {
+            document.getElementById('lblBucketVol').innerText = 'ปริมาณขุดต่อรอบ (Bucket Volume, m³/cycle)';
+            document.getElementById('lblCycleTime').innerText = 'เวลาต่อรอบขุด-เท (Cycle Time, วินาที)';
+            document.getElementById('lblProdRate').innerText = 'อัตราการตัก/ขุดงาน (ตัน/ชั่วโมง)';
+        }
+        calcBucketCycle();
+    }
+
+    function calcBucketCycle() {
+        const density = parseFloat(document.getElementById('materialDensity').value) || 0;
+
+        ['Comp', 'Cat'].forEach(function (side) {
+            const bucketVol = parseFloat(document.getElementById('bucketVol' + side).value) || 0;
+            const fillFactor = (parseFloat(document.getElementById('fillFactor' + side).value) || 0) / 100;
+            const cycleTime = parseFloat(document.getElementById('cycleTime' + side).value) || 0;
+
+            const cyclesPerHour = cycleTime > 0 ? (3600 / cycleTime) : 0;
+            const volPerHour = cyclesPerHour * bucketVol * fillFactor;
+            const tonsPerHour = volPerHour * density;
+
+            document.getElementById('cyclesPerHour' + side).innerText = formatNumber(cyclesPerHour).replace('.00', '');
+            document.getElementById('volPerHour' + side).innerText = formatNumber(volPerHour) + ' m³';
+
+            // Feed the computed production rate into the main table (still manually editable after).
+            const targetId = side === 'Comp' ? 'prodComp' : 'prodCat';
+            document.getElementById(targetId).value = tonsPerHour.toFixed(1);
+        });
+
+        calculateTCO();
     }
 
     window.onload = function() {
         setDefaultDate();
-        calculateTCO();
         populateFinanceMachineSelect();
+        calcBucketCycle(); // also triggers calculateTCO()
         buildConverter();
     };
 </script>
